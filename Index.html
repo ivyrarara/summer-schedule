@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#1F45D7">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#1F45D7"/>
+    <text x="600" y="440" font-family="sans-serif" font-size="220" font-weight="900" fill="#ffffff" text-anchor="middle">☀</text>
+  </svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/modernist-a206215c-a926-487b-8e82-bafdfcb5affc/styles.css">
+  <script src="_ds/modernist-a206215c-a926-487b-8e82-bafdfcb5affc/_ds_bundle.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable.min.css">
+  <style>
+    :root { --font-heading: 'Pretendard Variable', system-ui, sans-serif; --font-body: 'Pretendard Variable', system-ui, sans-serif; }
+    .activity-name-input::placeholder { font-size: 16px; font-weight: 800; color: var(--color-neutral-700); opacity: 0.5; }
+    html, body { margin: 0; background: var(--color-neutral-300); overflow-x: hidden; }
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+    ::-webkit-scrollbar { display: none; }
+    a { color: var(--color-accent); }
+    a:hover { color: var(--color-accent-700); }
+    button { font-family: inherit; }
+    .input { background: rgba(255,255,255,0.28) !important; border: none !important; box-shadow: 0 1.5px 0 0 var(--color-accent) !important; border-radius: 0 !important; width: auto !important; max-width: calc(100% - 10pt) !important; align-self: auto !important; padding: 0 !important; min-height: 0 !important; height: 1lh !important; line-height: inherit; font-family: inherit !important; font-size: inherit; font-weight: inherit; letter-spacing: inherit !important; text-align: inherit; vertical-align: baseline !important; box-sizing: border-box !important; outline: none !important; }
+    [style*="cursor:text"] { box-shadow: 0 1.5px 0 0 transparent; }
+    .note-input { box-shadow: 0 1.5px 0 0 var(--note-color, var(--color-accent)) !important; }
+    .activity-name-input { background: none !important; border: none !important; box-shadow: 0 1.5px 0 0 #F2600A !important; display: block !important; width: calc(100% - 60px) !important; max-width: calc(100% - 60px) !important; box-sizing: border-box !important; }
+    .activity-meta-input { background: none !important; border: none !important; box-shadow: 0 1.5px 0 0 #F2600A !important; display: block !important; height: 16px !important; line-height: 16px !important; width: calc(100% - 60px) !important; max-width: calc(100% - 60px) !important; box-sizing: border-box !important;rtant; box-sizing: border-box !important; -webkit-appearance: none !important; appearance: none !important; vertical-align: top !important; }
+    .grocery-row:last-child { border-bottom: none !important; }
+    .grocery-name-input { box-shadow: 0 1.5px 0 0 var(--color-accent) !important; line-height: 20px !important; }
+    .camp-name-input { margin-top: -0.7px !important; margin-bottom: 6px !important; }
+    .camp-name-input-nb { margin-top: -0.7px !important; margin-bottom: 6px !important; }
+    .loc-field-input { width: calc(100% - 60px) !important; max-width: calc(100% - 60px) !important; box-sizing: border-box !important; }
+    .label-field-input { width: calc(100% - 60px) !important; max-width: calc(100% - 60px) !important; box-sizing: border-box !important; }
+    .title-h1-input { margin: 5px 0 4px 0 !important; display: block !important; letter-spacing: -0.015em !important; }
+    .date-range-input { margin-bottom: 16px !important; display: block !important; }
+    .input.time-input { width: 9ch !important; max-width: 9ch !important; padding: 0 !important; min-height: auto !important; flex: none !important; }
+    .input.menu-add-input { background: transparent !important; width: auto !important; display: block !important; padding: 4px 2px !important; min-height: 26px !important; line-height: 18px !important; box-sizing: border-box !important; border: none !important; box-shadow: none !important; }
+    .input.menu-add-input:focus { box-shadow: 0 1.5px 0 0 var(--color-accent) !important; }
+    .input.title-h1-input { margin: 5px 0 4px 0 !important; }
+  </style>
+</helmet>
+<div style="min-height: 100vh; display: flex; justify-content: center; font-family: var(--font-body); color: var(--color-text)">
+  <div style="{{ frameStyle }}">
+
+    <sc-if value="{{ titleField.isEditing }}" hint-placeholder-val="{{ false }}">
+      <input class="input title-h1-input" value="{{ titleField.draftValue }}" onChange="{{ titleField.onChangeDraft }}" onBlur="{{ titleField.onCommit }}" onKeyDown="{{ titleField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:calc(27px * var(--dash-scale)); font-weight:800; line-height:1.2; margin:5px 0 4px 0; width:100%; max-width:calc(100% - 10pt); display:block; padding:0; box-sizing:border-box">
+    </sc-if>
+    <sc-if value="{{ titleField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+      <h1 onClick="{{ titleField.onStartEdit }}" style="font-size:calc(27px * var(--dash-scale)); font-weight:800; line-height:1.2; margin:5px 0 4px 0; padding:0; cursor:text; box-sizing:border-box">{{ titleField.value }}</h1>
+    </sc-if>
+    <sc-if value="{{ dateRangeField.isEditing }}" hint-placeholder-val="{{ false }}">
+      <input class="input date-range-input" value="{{ dateRangeField.draftValue }}" onChange="{{ dateRangeField.onChangeDraft }}" onBlur="{{ dateRangeField.onCommit }}" onKeyDown="{{ dateRangeField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:14px; font-weight:400; line-height:1.4; margin:0 0 16px 0; padding:0; width:100%; max-width:calc(100% - 10pt); display:block; box-sizing:border-box">
+    </sc-if>
+    <sc-if value="{{ dateRangeField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+      <div onClick="{{ dateRangeField.onStartEdit }}" style="font-size:14px; font-weight:400; line-height:1.4; opacity:.55; margin:0 0 16px 0; padding:0; cursor:text; box-sizing:border-box">{{ dateRangeField.value }}</div>
+    </sc-if>
+
+    <div style="display: flex; border: 2px solid var(--color-divider); margin-top: 45pt; margin-bottom: 16px; border-width: 0px">
+      <button onClick="{{ selectScheduleTab }}" style="{{ scheduleTabStyle }}">SCHEDULE</button>
+      <button onClick="{{ selectGroceryTab }}" style="{{ groceryTabStyle }}">GROCERIES</button>
+    </div>
+
+    <sc-if value="{{ isScheduleTab }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="display:flex; align-items:stretch; gap:20px; margin-bottom:16px">
+          <button onClick="{{ selectWeekMode }}" style="{{ viewModeWeekStyle }}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            주간
+          </button>
+          <div style="width: 1.5px; background: var(--color-divider); height: 17px"></div>
+          <button onClick="{{ selectMonthMode }}" style="{{ viewModeMonthStyle }}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="9" y1="4" x2="9" y2="20"></line><line x1="15" y1="4" x2="15" y2="20"></line></svg>
+            월간
+          </button>
+        </div>
+
+        <sc-if value="{{ isWeekMode }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <nav id="week-tabs-nav" style="display:flex; gap:6px; overflow-x:auto; padding:2px 2px 12px; margin-bottom:4px">
+              <sc-for list="{{ weekTabs }}" as="wt" hint-placeholder-count="4">
+                <button id="{{ wt.id }}" onClick="{{ wt.onSelect }}" style="{{ wt.style }}">{{ wt.label }}</button>
+              </sc-for>
+            </nav>
+
+            <div class="card" style="margin-bottom: 12px; background: none; border: 1pt solid var(--color-neutral-200)">
+              <div class="card-kicker" style="font-weight: 700; text-align: left; font-size: 11px; margin-bottom: -5pt; color: var(--color-text)">THIS WEEK'S CAMP</div>
+
+              <sc-if value="{{ campNameField.isEditing }}" hint-placeholder-val="{{ false }}">
+                <input class="input camp-name-input" value="{{ campNameField.draftValue }}" onChange="{{ campNameField.onChangeDraft }}" onBlur="{{ campNameField.onCommit }}" onKeyDown="{{ campNameField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:calc(21.6px * var(--dash-scale)); font-weight:800; color:var(--color-accent)">
+              </sc-if>
+              <sc-if value="{{ campNameField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ campNameField.onStartEdit }}" style="{{ campNameField.textStyle }}">{{ campNameField.value }}</div>
+              </sc-if>
+
+              <sc-if value="{{ campLocField.isEditing }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:13px; line-height:1.1; margin-top:-4px; display:flex; align-items:baseline; gap:2px">
+                  <sc-if value="{{ campLocField.hasPrefix }}" hint-placeholder-val="{{ false }}">
+                    <span style="opacity:.6; white-space:nowrap">장소 · </span>
+                  </sc-if>
+                  <input class="input" value="{{ campLocField.draftValue }}" onChange="{{ campLocField.onChangeDraft }}" onBlur="{{ campLocField.onCommit }}" onKeyDown="{{ campLocField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:13px; line-height:14.3px; height:14.3px; box-sizing:border-box; flex:1">
+                </div>
+              </sc-if>
+              <sc-if value="{{ campLocField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ campLocField.onStartEdit }}" style="{{ campLocField.textStyle }}">{{ campLocField.displayText }}</div>
+              </sc-if>
+
+              <sc-if value="{{ campItemsField.isEditing }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:13px; line-height:1.1; margin-top:-4px; display:flex; align-items:baseline; gap:2px">
+                  <sc-if value="{{ campItemsField.hasPrefix }}" hint-placeholder-val="{{ false }}">
+                    <span style="opacity:.6; white-space:nowrap">준비물 · </span>
+                  </sc-if>
+                  <input class="input" value="{{ campItemsField.draftValue }}" onChange="{{ campItemsField.onChangeDraft }}" onBlur="{{ campItemsField.onCommit }}" onKeyDown="{{ campItemsField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:13px; line-height:14.3px; height:14.3px; box-sizing:border-box; flex:1">
+                </div>
+              </sc-if>
+              <sc-if value="{{ campItemsField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ campItemsField.onStartEdit }}" style="{{ campItemsField.textStyle }}">{{ campItemsField.displayText }}</div>
+              </sc-if>
+
+              <div style="display:flex; gap:14px; margin-top:6px">
+                <div style="flex:1; display:flex; align-items:baseline; gap:4px">
+                  <span style="font-size:13px; font-weight:400; color:rgba(0,0,0,.8)">Drop off ·</span>
+                  <sc-if value="{{ campDropOffField.isEditing }}" hint-placeholder-val="{{ false }}">
+                    <input class="input time-input" placeholder="HH:MM" value="{{ campDropOffField.draftValue }}" onChange="{{ campDropOffField.onChangeDraft }}" onBlur="{{ campDropOffField.onCommit }}" onKeyDown="{{ campDropOffField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:13px; font-weight:600; color:var(--color-accent)">
+                  </sc-if>
+                  <sc-if value="{{ campDropOffField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                    <span onClick="{{ campDropOffField.onStartEdit }}" style="font-size:13px; font-weight:600; color:var(--color-accent); cursor:text">{{ campDropOffField.displayValue }}</span>
+                  </sc-if>
+                </div>
+                <div style="flex:1; display:flex; align-items:baseline; gap:4px">
+                  <span style="font-size:13px; font-weight:400; color:rgba(0,0,0,.8)">Pick up ·</span>
+                  <sc-if value="{{ campPickUpField.isEditing }}" hint-placeholder-val="{{ false }}">
+                    <input class="input time-input" placeholder="HH:MM" value="{{ campPickUpField.draftValue }}" onChange="{{ campPickUpField.onChangeDraft }}" onBlur="{{ campPickUpField.onCommit }}" onKeyDown="{{ campPickUpField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:13px; color:var(--color-accent)">
+                  </sc-if>
+                  <sc-if value="{{ campPickUpField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                    <span onClick="{{ campPickUpField.onStartEdit }}" style="font-size:13px; font-weight:600; color:var(--color-accent); cursor:text">{{ campPickUpField.displayValue }}</span>
+                  </sc-if>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:10px">
+              <sc-for list="{{ days }}" as="day" hint-placeholder-count="7">
+                <div class="card" id="day-card-{{ day.key }}" style="{{ day.cardStyle }}">
+                  <div style="position:relative">
+                  <button onClick="{{ day.onToggleHoliday }}" style="{{ day.holidayBtnStyle }}">휴일</button>
+                  <div style="display:flex; align-items:baseline; gap:8px">
+                    <div style="font-size:14px; font-weight:500; opacity:.75; text-transform:uppercase; color:{{ day.dowColor }}">{{ day.dow }}</div>
+                    <div style="font-family:var(--font-heading); font-weight:800; font-size:calc(29px * var(--dash-scale)); color:{{ day.dateColor }}">{{ day.dateLabel }}</div>
+                  </div>
+
+                  <sc-if value="{{ day.labelField.isEditing }}" hint-placeholder-val="{{ false }}">
+                    <input class="input label-field-input" value="{{ day.labelField.draftValue }}" onChange="{{ day.labelField.onChangeDraft }}" onBlur="{{ day.labelField.onCommit }}" onKeyDown="{{ day.labelField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:calc(16px * var(--dash-scale)); font-weight:800; width:calc(100% - 60px); max-width:calc(100% - 60px); box-sizing:border-box; display:block">
+                  </sc-if>
+                  <sc-if value="{{ day.labelField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                    <sc-if value="{{ day.showCampLabel }}" hint-placeholder-val="{{ true }}">
+                      <div onClick="{{ day.labelField.onStartEdit }}" style="font-size:calc(16px * var(--dash-scale)); font-weight:800; cursor:text; color:{{ day.labelField.textColor }}; opacity:{{ day.labelNameOpacity }}; pointer-events:{{ day.labelPointerEvents }}">{{ day.labelField.value }}</div>
+                    </sc-if>
+                  </sc-if>
+
+                  <div style="{{ day.dimStyle }}">
+                  <div style="position:relative; line-height:1">
+                    <div style="width:100%">
+                      <sc-if value="{{ day.locField.isEditing }}" hint-placeholder-val="{{ false }}">
+                        <input class="input loc-field-input" value="{{ day.locField.draftValue }}" onChange="{{ day.locField.onChangeDraft }}" onBlur="{{ day.locField.onCommit }}" onKeyDown="{{ day.locField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:12.5px; line-height:12.5px; height:12.5px; box-sizing:border-box; display:block">
+                      </sc-if>
+                      <sc-if value="{{ day.showLoc }}" hint-placeholder-val="{{ false }}">
+                        <sc-if value="{{ day.locField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                          <div onClick="{{ day.locField.onStartEdit }}" style="font-size:12.5px; font-weight:400; opacity:.55; cursor:text; color:{{ day.locField.textColor }}; line-height:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; padding-right:44px">{{ day.locField.value }}</div>
+                        </sc-if>
+                      </sc-if>
+                    </div>
+                    <sc-if value="{{ day.noActivities }}" hint-placeholder-val="{{ true }}">
+                      <button onClick="{{ day.openActivityAdd }}" style="position:absolute; top:0; right:0; background:none; border:none; cursor:pointer; color:#F2600A; font-size:12.6px; font-weight:700; padding:0; white-space:nowrap; opacity:{{ day.labelNameOpacity }}; pointer-events:{{ day.labelPointerEvents }}">+ 활동</button>
+                    </sc-if>
+                  </div>
+                  </div>
+
+                  <sc-for list="{{ day.activities }}" as="act" hint-placeholder-count="0">
+                    <div style="margin-top:8px; position:relative; padding-right:16px">
+                      <sc-if value="{{ act.nameField.isEditing }}" hint-placeholder-val="{{ false }}">
+                        <input class="input activity-name-input" placeholder="활동명" value="{{ act.nameField.draftValue }}" onChange="{{ act.nameField.onChangeDraft }}" onBlur="{{ act.nameField.onCommit }}" onKeyDown="{{ act.nameField.onKeyDown }}" autoFocus="{{ true }}" autoComplete="off" autoCorrect="off" spellCheck="{{ false }}" style="font-size:calc(16px * var(--dash-scale)); font-weight:800; width:calc(100% - 60px); max-width:calc(100% - 60px); box-sizing:border-box; display:block">
+                      </sc-if>
+                      <sc-if value="{{ act.nameField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                        <div onClick="{{ act.nameField.onStartEdit }}" style="{{ act.nameDisplayStyle }}">{{ act.nameDisplayText }}</div>
+                      </sc-if>
+                      <div style="{{ day.dimStyle }}">
+                      <sc-if value="{{ act.showMeta }}" hint-placeholder-val="{{ false }}">
+                        <sc-if value="{{ act.timeField.isEditing }}" hint-placeholder-val="{{ false }}">
+                          <input class="input activity-meta-input" placeholder="시간" value="{{ act.timeField.draftValue }}" onChange="{{ act.timeField.onChangeDraft }}" onBlur="{{ act.timeField.onCommit }}" onKeyDown="{{ act.timeField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:12.5px; line-height:16px; height:16px; box-sizing:border-box; -webkit-appearance:none; appearance:none; display:block">
+                        </sc-if>
+                        <sc-if value="{{ act.timeField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                          <div onClick="{{ act.timeField.onStartEdit }}" style="{{ act.timeField.displayStyle }}">{{ act.timeField.displayValue }}</div>
+                        </sc-if>
+                        <sc-if value="{{ act.locField.isEditing }}" hint-placeholder-val="{{ false }}">
+                          <input class="input activity-meta-input" placeholder="장소" value="{{ act.locField.draftValue }}" onChange="{{ act.locField.onChangeDraft }}" onBlur="{{ act.locField.onCommit }}" onKeyDown="{{ act.locField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:12.5px; line-height:16px; height:16px; box-sizing:border-box; -webkit-appearance:none; appearance:none; display:block">
+                        </sc-if>
+                        <sc-if value="{{ act.locField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                          <div onClick="{{ act.locField.onStartEdit }}" style="{{ act.locField.displayStyle }}">{{ act.locField.displayValue }}</div>
+                        </sc-if>
+                      </sc-if>
+                      </div>
+                      <sc-if value="{{ act.showMeta }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ act.onDelete }}" aria-label="delete" style="position:absolute; top:0; right:0; background:none; border:none; cursor:pointer; color:var(--color-neutral-600); display:flex; padding:2px; opacity:{{ day.labelNameOpacity }}; pointer-events:{{ day.labelPointerEvents }}">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                        </button>
+                      </sc-if>
+                      <sc-if value="{{ act.isLast }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ act.onAddMore }}" style="position:absolute; bottom:0; right:0; background:none; border:none; cursor:pointer; color:#F2600A; font-size:12.6px; font-weight:700; padding:0; white-space:nowrap; opacity:{{ day.labelNameOpacity }}; pointer-events:{{ day.labelPointerEvents }}">+ 활동</button>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+
+                  <hr class="hr" style="margin:11px 0 6px; border:none; height:1px; background:var(--color-divider)">
+
+                  <sc-for list="{{ day.badges }}" as="badge" hint-placeholder-count="1">
+                    <div style="margin-top:4.7px; margin-bottom:6.7px; display:inline-block">
+                      <sc-if value="{{ badge.field.isEditing }}" hint-placeholder-val="{{ false }}">
+                        <input class="input" value="{{ badge.field.draftValue }}" onChange="{{ badge.field.onChangeDraft }}" onBlur="{{ badge.field.onCommit }}" onKeyDown="{{ badge.field.onKeyDown }}" autoFocus="{{ true }}" style="font-size:12px; color:var(--color-accent)">
+                      </sc-if>
+                      <sc-if value="{{ badge.field.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                        <div style="display:inline-flex; align-items:center; gap:6px; background:color-mix(in srgb, var(--color-accent) 15%, transparent); color:var(--color-accent); font-weight:800; font-size:12px; line-height:1; padding:6.7px 10px; border-radius:999px; width:fit-content">
+                          <span onClick="{{ badge.field.onStartEdit }}" style="display:inline-flex; align-items:center; gap:6px; cursor:text">{{ badge.field.value }}</span>
+                          <button onClick="{{ badge.onDelete }}" aria-label="remove" style="background:none; border:none; cursor:pointer; color:var(--color-accent); opacity:.5; display:inline-flex; padding:0">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                          </button>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                  <div style="display:grid; gap:8px; margin-top:3px">
+                    <sc-for list="{{ day.meals }}" as="meal" hint-placeholder-count="3">
+                      <div>
+                        <div style="display:flex; align-items:center; height:18px; opacity:.5; color:var(--color-text)">
+                          <sc-if value="{{ meal.isBreakfast }}" hint-placeholder-val="{{ false }}">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+                          </sc-if>
+                          <sc-if value="{{ meal.isLunch }}" hint-placeholder-val="{{ false }}">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>
+                          </sc-if>
+                          <sc-if value="{{ meal.isDinner }}" hint-placeholder-val="{{ false }}">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                          </sc-if>
+                          <sc-if value="{{ meal.canToggleLunch }}" hint-placeholder-val="{{ false }}">
+                            <button onClick="{{ meal.onCycleLunch }}" aria-label="toggle lunch" style="{{ meal.style }}">{{ meal.label }}</button>
+                          </sc-if>
+                          <sc-if value="{{ meal.canRefresh }}" hint-placeholder-val="{{ false }}">
+                            <button onClick="{{ meal.onRefresh }}" aria-label="refresh" style="{{ meal.refreshStyle }}">
+                              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"></path><path d="M21 3v6h-6"></path></svg>
+                            </button>
+                          </sc-if>
+                        </div>
+                        <sc-if value="{{ meal.isEditing }}" hint-placeholder-val="{{ false }}">
+                          <input class="input" value="{{ meal.draftValue }}" onChange="{{ meal.onChangeDraft }}" onBlur="{{ meal.onCommit }}" onKeyDown="{{ meal.onKeyDown }}" autoFocus="{{ true }}" style="font-size:13.5px; font-weight:500; line-height:1.2; margin-top:1px; display:block">
+                        </sc-if>
+                        <sc-if value="{{ meal.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                          <div onClick="{{ meal.onStartEdit }}" style="font-size:13.5px; font-weight:500; line-height:1.2; color:var(--color-neutral-700); margin-top:1px; cursor:text">{{ meal.value }}</div>
+                        </sc-if>
+                      </div>
+                    </sc-for>
+                  </div>
+
+                  <sc-if value="{{ day.noteField.isEditing }}" hint-placeholder-val="{{ false }}">
+                    <input class="input note-input" value="{{ day.noteField.draftValue }}" onChange="{{ day.noteField.onChangeDraft }}" onBlur="{{ day.noteField.onCommit }}" onKeyDown="{{ day.noteField.onKeyDown }}" autoFocus="{{ true }}" placeholder="메모" style="font-size:13px; font-weight:600; margin-top:8px; color:{{ day.noteBtnColor }}; --note-color:{{ day.noteBtnColor }}">
+                  </sc-if>
+                  <sc-if value="{{ day.hasNote }}" hint-placeholder-val="{{ false }}">
+                    <sc-if value="{{ day.noteField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                      <div onClick="{{ day.noteField.onStartEdit }}" style="font-size:13px; font-weight:600; color:{{ day.noteBtnColor }}; margin-top:8px; cursor:text">{{ day.noteField.value }}</div>
+                    </sc-if>
+                  </sc-if>
+                  <div style="position:absolute; right:0; bottom:3px; display:flex; align-items:center; gap:14px">
+                    <button onClick="{{ day.noteField.onStartEdit }}" style="background:none; border:none; cursor:pointer; color:{{ day.noteBtnColor }}; font-size:12.6px; font-weight:700; padding:0">+ 메모</button>
+                  </div>
+                  </div>
+
+                  <sc-if value="{{ day.hasCamp }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; align-items:center; justify-content:center">
+                    <sc-for list="{{ day.statusOptions }}" as="opt" hint-placeholder-count="5">
+                      <sc-if value="{{ opt.isCustom }}" hint-placeholder-val="{{ false }}">
+                        <sc-if value="{{ day.isEditingCustomStatusDay }}" hint-placeholder-val="{{ false }}">
+                          <input class="input" value="{{ day.specialField.draftValue }}" onChange="{{ day.specialField.onChangeDraft }}" onBlur="{{ day.specialField.onCommit }}" onKeyDown="{{ day.specialField.onKeyDown }}" autoFocus="{{ true }}" placeholder="기타 입력" style="font-size:12px; width:90px">
+                        </sc-if>
+                        <sc-if value="{{ day.isNotEditingCustomStatusDay }}" hint-placeholder-val="{{ true }}">
+                          <button onClick="{{ opt.onClick }}" style="border:none; background:color-mix(in srgb, var(--color-text) 10%, transparent); color:var(--color-text); opacity:{{ day.statusPillOpacity }}; border-radius:999px; padding:5px 12px; font-size:12px; font-weight:600; cursor:pointer; pointer-events:{{ day.labelPointerEvents }}">{{ opt.label }}</button>
+                        </sc-if>
+                      </sc-if>
+                      <sc-if value="{{ opt.isFixed }}" hint-placeholder-val="{{ true }}">
+                        <button onClick="{{ opt.onClick }}" style="border:none; background:color-mix(in srgb, var(--color-text) 10%, transparent); color:var(--color-text); opacity:{{ day.statusPillOpacity }}; border-radius:999px; padding:5px 12px; font-size:12px; font-weight:600; cursor:pointer; pointer-events:{{ day.labelPointerEvents }}">{{ opt.label }}</button>
+                      </sc-if>
+                    </sc-for>
+                  </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isMonthMode }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px">
+              <button class="btn btn-secondary btn-icon" onClick="{{ prevMonth }}" disabled="{{ prevMonthDisabled }}" aria-label="prev" style="border:none; background:var(--color-neutral-100)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+              </button>
+              <div style="font-family:var(--font-heading); font-weight:800; font-size:16px">{{ monthLabel }}</div>
+              <button class="btn btn-secondary btn-icon" onClick="{{ nextMonth }}" disabled="{{ nextMonthDisabled }}" aria-label="next" style="border:none; background:var(--color-neutral-100)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+              </button>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:6px">
+              <sc-for list="{{ weekdayHeads }}" as="wh" hint-placeholder-count="7">
+                <div style="font-size:11.5px; font-weight:800; text-align:center; opacity:.32">{{ wh }}</div>
+              </sc-for>
+            </div>
+
+            <sc-for list="{{ monthRows }}" as="row" hint-placeholder-count="5">
+              <div style="{{ row.wrapperStyle }}">
+                <sc-if value="{{ indicatorIsBar }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:3px; min-height:20px">
+                    <sc-if value="{{ row.hasCampBar }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ row.campBar.onClick }}" style="{{ row.campBar.style }}">{{ row.campBar.label }}</button>
+                    </sc-if>
+                  </div>
+                </sc-if>
+                <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:10px">
+                  <sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="7">
+                    <button onClick="{{ cell.onClick }}" disabled="{{ cell.disabled }}" style="{{ cell.style }}">
+                      <sc-if value="{{ cell.hasLabel }}" hint-placeholder-val="{{ true }}">
+                        <span>{{ cell.label }}</span>
+                        <span style="width:5px; height:5px; border-radius:50%; background:{{ cell.dotColor }}; display:block; margin-top:3px; visibility:{{ cell.dotVisibility }}"></span>
+                      </sc-if>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+
+            <sc-if value="{{ hasMonthSelectedCamp }}" hint-placeholder-val="{{ false }}">
+              <div class="card" style="margin-bottom: 12px; background:none; border:1pt solid var(--color-neutral-200)">
+                <div class="card-kicker" style="font-weight:700; text-align:left; font-size:11px; margin-bottom:-5pt; color:var(--color-text)">THIS WEEK'S CAMP</div>
+                <sc-if value="{{ monthCampNameField.isEditing }}" hint-placeholder-val="{{ false }}">
+                  <input class="input camp-name-input-nb" value="{{ monthCampNameField.draftValue }}" onChange="{{ monthCampNameField.onChangeDraft }}" onBlur="{{ monthCampNameField.onCommit }}" onKeyDown="{{ monthCampNameField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:calc(21.6px * var(--dash-scale)); font-weight:800; color:var(--color-accent)">
+                </sc-if>
+                <sc-if value="{{ monthCampNameField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                  <div onClick="{{ monthCampNameField.onStartEdit }}" style="{{ monthCampNameField.textStyle }}">{{ monthCampNameField.value }}</div>
+                </sc-if>
+                <sc-if value="{{ monthCampLocField.isEditing }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px; line-height:1.1; margin-top:-4px; display:flex; align-items:baseline; gap:2px">
+                    <sc-if value="{{ monthCampLocField.hasPrefix }}" hint-placeholder-val="{{ false }}">
+                      <span style="opacity:.6; white-space:nowrap">장소 · </span>
+                    </sc-if>
+                    <input class="input" value="{{ monthCampLocField.draftValue }}" onChange="{{ monthCampLocField.onChangeDraft }}" onBlur="{{ monthCampLocField.onCommit }}" onKeyDown="{{ monthCampLocField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:13px; line-height:14.3px; height:14.3px; box-sizing:border-box; flex:1">
+                  </div>
+                </sc-if>
+                <sc-if value="{{ monthCampLocField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                  <div onClick="{{ monthCampLocField.onStartEdit }}" style="{{ monthCampLocField.textStyle }}">{{ monthCampLocField.displayText }}</div>
+                </sc-if>
+                <sc-if value="{{ monthCampItemsField.isEditing }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px; line-height:1.1; margin-top:-4px; display:flex; align-items:baseline; gap:2px">
+                    <sc-if value="{{ monthCampItemsField.hasPrefix }}" hint-placeholder-val="{{ false }}">
+                      <span style="opacity:.6; white-space:nowrap">준비물 · </span>
+                    </sc-if>
+                    <input class="input" value="{{ monthCampItemsField.draftValue }}" onChange="{{ monthCampItemsField.onChangeDraft }}" onBlur="{{ monthCampItemsField.onCommit }}" onKeyDown="{{ monthCampItemsField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:13px; line-height:14.3px; height:14.3px; box-sizing:border-box; flex:1">
+                  </div>
+                </sc-if>
+                <sc-if value="{{ monthCampItemsField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                  <div onClick="{{ monthCampItemsField.onStartEdit }}" style="{{ monthCampItemsField.textStyle }}">{{ monthCampItemsField.displayText }}</div>
+                </sc-if>
+                <div style="display:flex; gap:14px; margin-top:6px">
+                  <div style="flex:1; display:flex; align-items:baseline; gap:4px">
+                    <span style="font-size:13px; font-weight:400; color:rgba(0,0,0,.8)">Drop off ·</span>
+                    <sc-if value="{{ monthCampDropOffField.isEditing }}" hint-placeholder-val="{{ false }}">
+                      <input class="input time-input" placeholder="HH:MM" style="font-weight:600" value="{{ monthCampDropOffField.draftValue }}" onChange="{{ monthCampDropOffField.onChangeDraft }}" onBlur="{{ monthCampDropOffField.onCommit }}" onKeyDown="{{ monthCampDropOffField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:13px; color:var(--color-accent)">
+                    </sc-if>
+                    <sc-if value="{{ monthCampDropOffField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                      <span onClick="{{ monthCampDropOffField.onStartEdit }}" style="font-size:13px; font-weight:600; color:var(--color-accent); cursor:text">{{ monthCampDropOffField.displayValue }}</span>
+                    </sc-if>
+                  </div>
+                  <div style="flex:1; display:flex; align-items:baseline; gap:4px">
+                    <span style="font-size:13px; font-weight:400; color:rgba(0,0,0,.8)">Pick up ·</span>
+                    <sc-if value="{{ monthCampPickUpField.isEditing }}" hint-placeholder-val="{{ false }}">
+                      <input class="input time-input" placeholder="HH:MM" style="font-weight:600" value="{{ monthCampPickUpField.draftValue }}" onChange="{{ monthCampPickUpField.onChangeDraft }}" onBlur="{{ monthCampPickUpField.onCommit }}" onKeyDown="{{ monthCampPickUpField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:13px; color:var(--color-accent)">
+                    </sc-if>
+                    <sc-if value="{{ monthCampPickUpField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                      <span onClick="{{ monthCampPickUpField.onStartEdit }}" style="font-size:13px; font-weight:600; color:var(--color-accent); cursor:text">{{ monthCampPickUpField.displayValue }}</span>
+                    </sc-if>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ hasSelectedDay }}" hint-placeholder-val="{{ false }}">
+              <div class="card">
+                <div style="position:relative">
+                  <button onClick="{{ onToggleHoliday }}" style="{{ detailHolidayBtnStyle }}">휴일</button>
+                  <div style="display:flex; align-items:baseline; gap:8px">
+                    <div style="font-size:14px; font-weight:500; opacity:.75; text-transform:uppercase; color:{{ detailDowColor }}">{{ detailDow }}</div>
+                    <div style="font-family:var(--font-heading); font-weight:800; font-size:calc(29px * var(--dash-scale)); color:{{ detailDateColor }}">{{ detailDateLabel }}</div>
+                  </div>
+
+                  <sc-if value="{{ detailIsCamp }}" hint-placeholder-val="{{ false }}">
+                    <sc-if value="{{ detailCampNameField.isEditing }}" hint-placeholder-val="{{ false }}">
+                      <input class="input label-field-input" value="{{ detailCampNameField.draftValue }}" onChange="{{ detailCampNameField.onChangeDraft }}" onBlur="{{ detailCampNameField.onCommit }}" onKeyDown="{{ detailCampNameField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:calc(16px * var(--dash-scale)); font-weight:800; width:calc(100% - 60px); max-width:calc(100% - 60px); box-sizing:border-box; display:block">
+                    </sc-if>
+                    <sc-if value="{{ detailCampNameField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                      <sc-if value="{{ detailShowCampInfo }}" hint-placeholder-val="{{ true }}">
+                        <div onClick="{{ detailCampNameField.onStartEdit }}" style="{{ detailCampNameField.textStyle }}">{{ detailCampNameField.value }}</div>
+                      </sc-if>
+                    </sc-if>
+                    <div style="{{ detailDimStyle }}">
+                    <sc-if value="{{ detailCampLocField.isEditing }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:13px; line-height:1.1; display:flex; align-items:baseline; gap:2px; margin-top:2px; width:calc(100% - 60px); max-width:calc(100% - 60px); box-sizing:border-box">
+                        <sc-if value="{{ detailCampLocField.hasPrefix }}" hint-placeholder-val="{{ false }}">
+                          <span style="opacity:.6; white-space:nowrap">장소 · </span>
+                        </sc-if>
+                        <input class="input" value="{{ detailCampLocField.draftValue }}" onChange="{{ detailCampLocField.onChangeDraft }}" onBlur="{{ detailCampLocField.onCommit }}" onKeyDown="{{ detailCampLocField.onKeyDown }}" autoFocus="{{ true }}" style="flex:1; min-width:0; width:100% !important; max-width:100% !important; font-size:13px; line-height:14.3px; height:14.3px; box-sizing:border-box">
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ detailCampLocField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                      <sc-if value="{{ detailShowCampInfo }}" hint-placeholder-val="{{ true }}">
+                        <div onClick="{{ detailCampLocField.onStartEdit }}" style="{{ detailCampLocField.textStyle }}">{{ detailCampLocField.displayText }}</div>
+                      </sc-if>
+                    </sc-if>
+                    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px; line-height:1; margin-bottom:10px">
+                      <div style="flex:1; min-width:0">
+                        <sc-if value="{{ detailCampItemsField.isEditing }}" hint-placeholder-val="{{ false }}">
+                          <div style="font-size:13px; line-height:1.1; display:flex; align-items:baseline; gap:2px; margin-top:3.7px">
+                            <sc-if value="{{ detailCampItemsField.hasPrefix }}" hint-placeholder-val="{{ false }}">
+                              <span style="opacity:.6; white-space:nowrap">준비물 · </span>
+                            </sc-if>
+                            <input class="input loc-field-input" value="{{ detailCampItemsField.draftValue }}" onChange="{{ detailCampItemsField.onChangeDraft }}" onBlur="{{ detailCampItemsField.onCommit }}" onKeyDown="{{ detailCampItemsField.onKeyDown }}" autoFocus="{{ true }}" style="width:calc(100% - 60px) !important; max-width:calc(100% - 60px) !important; font-size:13px; line-height:13px; height:13px; box-sizing:border-box">
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ detailCampItemsField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                          <div onClick="{{ detailCampItemsField.onStartEdit }}" style="{{ detailCampItemsField.textStyle }}">{{ detailCampItemsField.displayText }}</div>
+                        </sc-if>
+                      </div>
+                      <sc-if value="{{ detailNoActivities }}" hint-placeholder-val="{{ true }}">
+                        <button onClick="{{ openActivityAdd }}" style="background:none; border:none; cursor:pointer; color:#F2600A; font-size:12.6px; font-weight:700; padding:0; white-space:nowrap; opacity:{{ detailLabelNameOpacity }}; pointer-events:{{ detailLabelPointerEvents }}">+ 활동</button>
+                      </sc-if>
+                    </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ detailIsWeekend }}" hint-placeholder-val="{{ false }}">
+                    <sc-if value="{{ detailLabelField.isEditing }}" hint-placeholder-val="{{ false }}">
+                      <input class="input" value="{{ detailLabelField.draftValue }}" onChange="{{ detailLabelField.onChangeDraft }}" onBlur="{{ detailLabelField.onCommit }}" onKeyDown="{{ detailLabelField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:calc(18px * var(--dash-scale)); font-weight:700">
+                    </sc-if>
+                    <sc-if value="{{ detailLabelField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                      <sc-if value="{{ detailShowCampInfo }}" hint-placeholder-val="{{ true }}">
+                        <div onClick="{{ detailLabelField.onStartEdit }}" style="{{ detailLabelNameStyle }}">{{ detailLabelField.value }}</div>
+                      </sc-if>
+                    </sc-if>
+                    <div style="{{ detailDimStyle }}">
+                    <div style="position:relative; line-height:1">
+                      <div style="width:100%">
+                        <sc-if value="{{ detailLocField.isEditing }}" hint-placeholder-val="{{ false }}">
+                          <input class="input loc-field-input" value="{{ detailLocField.draftValue }}" onChange="{{ detailLocField.onChangeDraft }}" onBlur="{{ detailLocField.onCommit }}" onKeyDown="{{ detailLocField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:14px; line-height:16.8px; height:16.8px; box-sizing:border-box; margin-top:2px">
+                        </sc-if>
+                        <sc-if value="{{ detailLocField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                          <sc-if value="{{ detailShowCampInfo }}" hint-placeholder-val="{{ true }}">
+                            <div onClick="{{ detailLocField.onStartEdit }}" style="font-size:14px; opacity:.55; cursor:text; line-height:1.2; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; padding-right:44px">{{ detailLocField.value }}</div>
+                          </sc-if>
+                        </sc-if>
+                      </div>
+                      <sc-if value="{{ detailNoActivities }}" hint-placeholder-val="{{ true }}">
+                        <button onClick="{{ openActivityAdd }}" style="position:absolute; top:2px; right:0; background:none; border:none; cursor:pointer; color:#F2600A; font-size:12.6px; font-weight:700; padding:0; white-space:nowrap; opacity:{{ detailLabelNameOpacity }}; pointer-events:{{ detailLabelPointerEvents }}">+ 활동</button>
+                      </sc-if>
+                    </div>
+                      </sc-if>
+                    </div>
+                  </sc-if>
+
+                  <sc-for list="{{ detailBadges }}" as="badge" hint-placeholder-count="1">
+                    <div style="margin-top:2.7px; margin-bottom:12.7px; display:inline-block">
+                      <sc-if value="{{ badge.field.isEditing }}" hint-placeholder-val="{{ false }}">
+                        <input class="input" value="{{ badge.field.draftValue }}" onChange="{{ badge.field.onChangeDraft }}" onBlur="{{ badge.field.onCommit }}" onKeyDown="{{ badge.field.onKeyDown }}" autoFocus="{{ true }}" style="font-size:12px; color:var(--color-accent)">
+                      </sc-if>
+                      <sc-if value="{{ badge.field.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                        <div style="display:inline-flex; align-items:center; gap:6px; background:color-mix(in srgb, var(--color-accent) 15%, transparent); color:var(--color-accent); font-weight:800; font-size:12px; line-height:1; padding:6.7px 10px; border-radius:999px; width:fit-content">
+                          <span onClick="{{ badge.field.onStartEdit }}" style="display:inline-flex; align-items:center; gap:6px; cursor:text">{{ badge.field.value }}</span>
+                          <button onClick="{{ badge.onDelete }}" aria-label="remove" style="background:none; border:none; cursor:pointer; color:var(--color-accent); opacity:.5; display:inline-flex; padding:0">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                          </button>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+
+                  <sc-for list="{{ detailActivities }}" as="act" hint-placeholder-count="0">
+                    <div style="margin-top:8px; position:relative; padding-right:16px">
+                      <sc-if value="{{ act.nameField.isEditing }}" hint-placeholder-val="{{ false }}">
+                        <input class="input activity-name-input" placeholder="활동명" value="{{ act.nameField.draftValue }}" onChange="{{ act.nameField.onChangeDraft }}" onBlur="{{ act.nameField.onCommit }}" onKeyDown="{{ act.nameField.onKeyDown }}" autoFocus="{{ true }}" autoComplete="off" autoCorrect="off" spellCheck="{{ false }}" style="font-size:calc(16px * var(--dash-scale)); font-weight:800; width:calc(100% - 60px); max-width:calc(100% - 60px); box-sizing:border-box; display:block">
+                      </sc-if>
+                      <sc-if value="{{ act.nameField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                        <div onClick="{{ act.nameField.onStartEdit }}" style="{{ act.nameDisplayStyle }}">{{ act.nameDisplayText }}</div>
+                      </sc-if>
+                      <div style="{{ detailDimStyle }}">
+                      <sc-if value="{{ act.showMeta }}" hint-placeholder-val="{{ false }}">
+                        <sc-if value="{{ act.timeField.isEditing }}" hint-placeholder-val="{{ false }}">
+                          <input class="input activity-meta-input" placeholder="시간" value="{{ act.timeField.draftValue }}" onChange="{{ act.timeField.onChangeDraft }}" onBlur="{{ act.timeField.onCommit }}" onKeyDown="{{ act.timeField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:12.5px; line-height:16px; height:16px; box-sizing:border-box; -webkit-appearance:none; appearance:none; display:block">
+                        </sc-if>
+                        <sc-if value="{{ act.timeField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                          <div onClick="{{ act.timeField.onStartEdit }}" style="{{ act.timeField.displayStyle }}">{{ act.timeField.displayValue }}</div>
+                        </sc-if>
+                        <sc-if value="{{ act.locField.isEditing }}" hint-placeholder-val="{{ false }}">
+                          <input class="input activity-meta-input" placeholder="장소" value="{{ act.locField.draftValue }}" onChange="{{ act.locField.onChangeDraft }}" onBlur="{{ act.locField.onCommit }}" onKeyDown="{{ act.locField.onKeyDown }}" autoFocus="{{ true }}" style="font-size:12.5px; line-height:16px; height:16px; box-sizing:border-box; -webkit-appearance:none; appearance:none; display:block">
+                        </sc-if>
+                        <sc-if value="{{ act.locField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                          <div onClick="{{ act.locField.onStartEdit }}" style="{{ act.locField.displayStyle }}">{{ act.locField.displayValue }}</div>
+                        </sc-if>
+                      </sc-if>
+                      </div>
+                      <sc-if value="{{ act.showMeta }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ act.onDelete }}" aria-label="delete" style="position:absolute; top:0; right:0; background:none; border:none; cursor:pointer; color:var(--color-neutral-600); display:flex; padding:2px; opacity:{{ detailLabelNameOpacity }}; pointer-events:{{ detailLabelPointerEvents }}">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                        </button>
+                      </sc-if>
+                      <sc-if value="{{ act.isLast }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ act.onAddMore }}" style="position:absolute; bottom:0; right:0; background:none; border:none; cursor:pointer; color:#F2600A; font-size:12.6px; font-weight:700; padding:0; white-space:nowrap; opacity:{{ detailLabelNameOpacity }}; pointer-events:{{ detailLabelPointerEvents }}">+ 활동</button>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+
+                  <hr class="hr" style="margin:5px 0 17px; border:none; height:1px; background:var(--color-divider)">
+                  <div style="display:grid; gap:8px; margin-top:3px">
+                    <sc-for list="{{ detailMeals }}" as="meal" hint-placeholder-count="3">
+                      <div>
+                        <div style="display:flex; align-items:center; height:18px; opacity:.5; color:var(--color-text)">
+                          <sc-if value="{{ meal.isBreakfast }}" hint-placeholder-val="{{ false }}">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+                          </sc-if>
+                          <sc-if value="{{ meal.isLunch }}" hint-placeholder-val="{{ false }}">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>
+                          </sc-if>
+                          <sc-if value="{{ meal.isDinner }}" hint-placeholder-val="{{ false }}">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                          </sc-if>
+                          <sc-if value="{{ meal.canToggleLunch }}" hint-placeholder-val="{{ false }}">
+                            <button onClick="{{ meal.onCycleLunch }}" aria-label="toggle lunch" style="{{ meal.style }}">{{ meal.label }}</button>
+                          </sc-if>
+                          <sc-if value="{{ meal.canRefresh }}" hint-placeholder-val="{{ false }}">
+                            <button onClick="{{ meal.onRefresh }}" aria-label="refresh" style="{{ meal.refreshStyle }}">
+                              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"></path><path d="M21 3v6h-6"></path></svg>
+                            </button>
+                          </sc-if>
+                        </div>
+                        <sc-if value="{{ meal.isEditing }}" hint-placeholder-val="{{ false }}">
+                          <input class="input" value="{{ meal.draftValue }}" onChange="{{ meal.onChangeDraft }}" onBlur="{{ meal.onCommit }}" onKeyDown="{{ meal.onKeyDown }}" autoFocus="{{ true }}" style="font-size:13.5px; font-weight:500; line-height:1.2; margin-top:1px; display:block">
+                        </sc-if>
+                        <sc-if value="{{ meal.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                          <div onClick="{{ meal.onStartEdit }}" style="font-size:13.5px; font-weight:500; line-height:1.2; color:var(--color-neutral-700); margin-top:1px; cursor:text">{{ meal.value }}</div>
+                        </sc-if>
+                      </div>
+                    </sc-for>
+                  </div>
+
+                  <sc-if value="{{ detailNoteField.isEditing }}" hint-placeholder-val="{{ false }}">
+                    <input class="input note-input" value="{{ detailNoteField.draftValue }}" onChange="{{ detailNoteField.onChangeDraft }}" onBlur="{{ detailNoteField.onCommit }}" onKeyDown="{{ detailNoteField.onKeyDown }}" autoFocus="{{ true }}" placeholder="메모" style="font-size:13px; font-weight:600; margin-top:8px; color:{{ detailNoteBtnColor }}; --note-color:{{ detailNoteBtnColor }}">
+                  </sc-if>
+                  <sc-if value="{{ detailHasNote }}" hint-placeholder-val="{{ false }}">
+                    <sc-if value="{{ detailNoteField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                      <div onClick="{{ detailNoteField.onStartEdit }}" style="font-size:13px; font-weight:600; color:{{ detailNoteBtnColor }}; margin-top:8px; cursor:text">{{ detailNoteField.value }}</div>
+                    </sc-if>
+                  </sc-if>
+                  <div style="position:absolute; right:0; bottom:3px; display:flex; align-items:center; gap:14px">
+                    <button onClick="{{ detailNoteField.onStartEdit }}" style="background:none; border:none; cursor:pointer; color:{{ detailNoteBtnColor }}; font-size:12.6px; font-weight:700; padding:0">+ 메모</button>
+                  </div>
+                </div>
+
+                <sc-if value="{{ detailIsCamp }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; align-items:center; justify-content:center">
+                    <sc-for list="{{ statusOptions }}" as="opt" hint-placeholder-count="5">
+                      <sc-if value="{{ opt.isCustom }}" hint-placeholder-val="{{ false }}">
+                        <sc-if value="{{ isEditingCustomStatus }}" hint-placeholder-val="{{ false }}">
+                          <input class="input" value="{{ detailSpecialField.draftValue }}" onChange="{{ detailSpecialField.onChangeDraft }}" onBlur="{{ detailSpecialField.onCommit }}" onKeyDown="{{ detailSpecialField.onKeyDown }}" autoFocus="{{ true }}" placeholder="기타 입력" style="font-size:12px; width:90px">
+                        </sc-if>
+                        <sc-if value="{{ isNotEditingCustomStatus }}" hint-placeholder-val="{{ true }}">
+                          <button onClick="{{ opt.onClick }}" style="border:none; background:color-mix(in srgb, var(--color-text) 10%, transparent); color:var(--color-text); opacity:{{ detailLabelNameOpacity }}; border-radius:999px; padding:5px 12px; font-size:12px; font-weight:600; cursor:pointer; pointer-events:{{ detailLabelPointerEvents }}">{{ opt.label }}</button>
+                        </sc-if>
+                      </sc-if>
+                      <sc-if value="{{ opt.isFixed }}" hint-placeholder-val="{{ true }}">
+                        <button onClick="{{ opt.onClick }}" style="border:none; background:color-mix(in srgb, var(--color-text) 10%, transparent); color:var(--color-text); opacity:{{ detailLabelNameOpacity }}; border-radius:999px; padding:5px 12px; font-size:12px; font-weight:600; cursor:pointer; pointer-events:{{ detailLabelPointerEvents }}">{{ opt.label }}</button>
+                      </sc-if>
+                    </sc-for>
+                  </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isGroceryTab }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="display:flex; align-items:stretch; gap:20px; margin-bottom:16px">
+          <button onClick="{{ selectKorean }}" style="{{ storeKoreanStyle }}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+            한인식품점
+          </button>
+          <div style="width:1.5px; background:var(--color-divider); height:17px; align-self:center; margin-top:-8px"></div>
+          <button onClick="{{ selectLocal }}" style="{{ storeLocalStyle }}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+            로컬마트
+          </button>
+          <div style="width:1.5px; background:var(--color-divider); height:17px; align-self:center; margin-top:-8px"></div>
+          <button onClick="{{ selectMenu }}" style="{{ storeMenuStyle }}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13"></path><path d="M8 12h13"></path><path d="M8 18h13"></path><path d="M3 6h.01"></path><path d="M3 12h.01"></path><path d="M3 18h.01"></path></svg>
+            확정 식단
+          </button>
+        </div>
+
+        <sc-if value="{{ isKoreanStore }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:10px; border-radius:4px; padding:4px 4px 4px 8px; background:var(--color-neutral-200)">
+              <input class="input menu-add-input" placeholder="새 항목 추가" value="{{ groceryInput }}" onChange="{{ onGroceryInputChange }}" onKeyDown="{{ onGroceryKeyDown }}" style="flex:1; background:none; font-size:14px">
+              <button aria-label="add" onClick="{{ addGroceryItem }}" style="background:none; border:none; cursor:pointer; color:var(--color-accent); display:flex; padding:4px; flex:0 0 auto">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+              </button>
+            </div>
+            <div style="display:flex; justify-content:flex-start; margin-bottom:8px">
+              <button onClick="{{ clearChecked }}" style="display:flex; align-items:center; gap:5px; background:none; border:none; cursor:pointer; font-weight:800; color:var(--color-text); font-size:13.5px; padding:2pt 0 0 0; margin-left:3pt">
+                구매완료
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+              </button>
+            </div>
+            <div style="display:flex; flex-direction:column">
+              <sc-for list="{{ groceryItems }}" as="git" hint-placeholder-count="10">
+                <div class="grocery-row" style="display:flex; align-items:center; gap:10px; padding:10px 2px; border-bottom:1px solid var(--color-divider)">
+                  <input type="checkbox" checked="{{ git.checked }}" onChange="{{ git.onToggle }}" style="width:18px; height:18px; flex:0 0 auto; accent-color:var(--color-accent)">
+                  <sc-if value="{{ git.nameField.isEditing }}" hint-placeholder-val="{{ false }}">
+                    <input class="input grocery-name-input" value="{{ git.nameField.draftValue }}" onChange="{{ git.nameField.onChangeDraft }}" onBlur="{{ git.nameField.onCommit }}" onKeyDown="{{ git.nameField.onKeyDown }}" autoFocus="{{ true }}" style="flex:1; font-size:13.5px; font-weight:500; background:none">
+                  </sc-if>
+                  <sc-if value="{{ git.nameField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                    <span onClick="{{ git.nameField.onStartEdit }}" style="{{ git.labelStyle }}">{{ git.item }}</span>
+                  </sc-if>
+                  <button class="btn btn-ghost btn-icon" aria-label="delete" onClick="{{ git.onDelete }}" style="width:26px; height:26px">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                  </button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isLocalStore }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:10px; border-radius:4px; padding:4px 4px 4px 8px; background:var(--color-neutral-200)">
+              <input class="input menu-add-input" placeholder="새 항목 추가" value="{{ groceryInput }}" onChange="{{ onGroceryInputChange }}" onKeyDown="{{ onGroceryKeyDown }}" style="flex:1; background:none; font-size:14px">
+              <button aria-label="add" onClick="{{ addGroceryItem }}" style="background:none; border:none; cursor:pointer; color:var(--color-accent); display:flex; padding:4px; flex:0 0 auto">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+              </button>
+            </div>
+            <div style="display:flex; justify-content:flex-start; margin-bottom:8px">
+              <button onClick="{{ clearChecked }}" style="display:flex; align-items:center; gap:5px; background:none; border:none; cursor:pointer; font-weight:800; color:var(--color-text); font-size:13.5px; padding:2pt 0 0 0; margin-left:3pt">
+                구매완료
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+              </button>
+            </div>
+            <div style="display:flex; flex-direction:column">
+              <sc-for list="{{ groceryItems }}" as="git" hint-placeholder-count="10">
+                <div class="grocery-row" style="display:flex; align-items:center; gap:10px; padding:10px 2px; border-bottom:1px solid var(--color-divider)">
+                  <input type="checkbox" checked="{{ git.checked }}" onChange="{{ git.onToggle }}" style="width:18px; height:18px; flex:0 0 auto; accent-color:var(--color-accent)">
+                  <sc-if value="{{ git.nameField.isEditing }}" hint-placeholder-val="{{ false }}">
+                    <input class="input grocery-name-input" value="{{ git.nameField.draftValue }}" onChange="{{ git.nameField.onChangeDraft }}" onBlur="{{ git.nameField.onCommit }}" onKeyDown="{{ git.nameField.onKeyDown }}" autoFocus="{{ true }}" style="flex:1; font-size:13.5px; font-weight:500; background:none">
+                  </sc-if>
+                  <sc-if value="{{ git.nameField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                    <span onClick="{{ git.nameField.onStartEdit }}" style="{{ git.labelStyle }}">{{ git.item }}</span>
+                  </sc-if>
+                  <button class="btn btn-ghost btn-icon" aria-label="delete" onClick="{{ git.onDelete }}" style="width:26px; height:26px">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                  </button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isMenuView }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:18px">
+            <sc-for list="{{ menuCategories }}" as="cat" hint-placeholder-count="4">
+              <div>
+                <div style="font-size:calc(13px * 1.3); font-weight:800; margin-bottom:8px">{{ cat.title }}</div>
+                <div style="display:flex; flex-direction:column; margin-bottom:8px">
+                  <sc-for list="{{ cat.items }}" as="mi" hint-placeholder-count="6">
+                    <div style="{{ mi.rowStyle }}">
+                      <sc-if value="{{ mi.isEditing }}" hint-placeholder-val="{{ false }}">
+                        <input class="input" value="{{ mi.draftValue }}" onChange="{{ mi.onChangeDraft }}" onBlur="{{ mi.onCommit }}" onKeyDown="{{ mi.onKeyDown }}" autoFocus="{{ true }}" style="flex:1; font-size:14px; background:none">
+                      </sc-if>
+                      <sc-if value="{{ mi.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                        <span onClick="{{ mi.onStartEdit }}" style="flex:1; font-size:14px; font-weight:500; color:var(--color-text); opacity:.72; line-height:1.25; cursor:text">{{ mi.value }}</span>
+                      </sc-if>
+                      <sc-if value="{{ mi.linkField.isNotEditing }}" hint-placeholder-val="{{ true }}">
+                        <div style="display:inline-flex; flex:0 0 auto; width:14px; height:14px; padding:0; border:none">
+                          <sc-if value="{{ mi.hasLink }}" hint-placeholder-val="{{ false }}">
+                            <a href="{{ mi.link }}" target="_blank" rel="noopener" aria-label="open link" style="color:var(--color-accent); display:inline-flex; width:14px; height:14px">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                            </a>
+                          </sc-if>
+                          <sc-if value="{{ mi.noLink }}" hint-placeholder-val="{{ true }}">
+                            <button onClick="{{ mi.linkField.onStartEdit }}" aria-label="add link" style="background:none; border:none; cursor:pointer; color:var(--color-neutral-400); display:inline-flex; width:14px; height:14px; padding:0">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                            </button>
+                          </sc-if>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ mi.linkField.isEditing }}" hint-placeholder-val="{{ false }}">
+                        <input class="input" placeholder="영상 링크" value="{{ mi.linkField.draftValue }}" onChange="{{ mi.linkField.onChangeDraft }}" onBlur="{{ mi.linkField.onCommit }}" onKeyDown="{{ mi.linkField.onKeyDown }}" autoFocus="{{ true }}" style="flex:1 1 100px; min-width:80px; font-size:12.5px; background:none">
+                      </sc-if>
+                      <button class="btn btn-ghost btn-icon" aria-label="delete" onClick="{{ mi.onDelete }}" style="width:26px; height:26px">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                      </button>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px; border:none; border-radius:4px; padding:4px 4px 4px 8px; background:var(--color-neutral-200)">
+                  <input class="input menu-add-input" placeholder="새 메뉴 이름" value="{{ cat.inputValue }}" onChange="{{ cat.onInputChange }}" onKeyDown="{{ cat.onInputKeyDown }}" style="flex:1; background:none; font-size:14px">
+                  <button aria-label="add" onClick="{{ cat.onAdd }}" style="background:none; border:none; cursor:pointer; color:var(--color-accent); display:flex; padding:4px; flex:0 0 auto">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <div style="display:flex; align-items:center; gap:6px; margin:72px 0 4px; padding-top:14px; border-top:1px solid var(--color-divider); font-size:11px; flex-wrap:wrap">
+      <button onClick="{{ onCopySyncLink }}" style="display:flex; align-items:center; gap:4px; background:none; border:none; cursor:pointer; color:var(--color-accent); font-weight:700; padding:0; font-size:11px; white-space:nowrap">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+        동기화 링크 복사
+      </button>
+      <span style="opacity:.45; white-space:nowrap">{{ syncStatusText }}</span>
+      <sc-if value="{{ isSyncError }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ onRetrySync }}" style="background:none; border:none; cursor:pointer; color:var(--color-accent); opacity:.8; padding:0; font-size:11px; font-weight:700; white-space:nowrap">다시 시도</button>
+      </sc-if>
+    </div>
+    <div style="display:flex; margin:0 0 14px">
+      <button onClick="{{ onToggleSyncEntry }}" style="background:none; border:none; cursor:pointer; color:var(--color-text); opacity:.45; padding:0; font-size:11px">다른 기기 코드 입력</button>
+    </div>
+    <sc-if value="{{ showSyncCodeEntry }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; gap:6px; margin:-8px 0 14px">
+        <input class="input" placeholder="동기화 코드 붙여넣기" value="{{ syncCodeInput }}" onChange="{{ onSyncCodeInputChange }}" style="flex:1; background:var(--color-neutral-200); border-radius:8px; padding:6px 10px; font-size:12px">
+        <button onClick="{{ onLoadOtherSyncCode }}" style="background:var(--color-accent); color:var(--color-bg); border:none; border-radius:8px; padding:0 12px; font-weight:700; font-size:12px; cursor:pointer">불러오기</button>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1F45D7&quot;,&quot;options&quot;:[&quot;#ec3013&quot;,&quot;#1F45D7&quot;,&quot;#0F6FB0&quot;,&quot;#2E7D46&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Mood&quot;},&quot;layoutScale&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;compact&quot;,&quot;options&quot;:[&quot;compact&quot;,&quot;comfortable&quot;],&quot;tsType&quot;:&quot;'compact'|'comfortable'&quot;,&quot;section&quot;:&quot;Layout feel&quot;},&quot;monthIndicator&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;bar&quot;,&quot;options&quot;:[&quot;bar&quot;,&quot;dot&quot;],&quot;tsType&quot;:&quot;'bar'|'dot'&quot;,&quot;section&quot;:&quot;Layout feel&quot;}}">
+const DOW_LABEL = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
+
+const WEEKS_DATA_DEFAULT = [
+  { start:"2026-06-29", days:7, camp:{ name:"보드게임 & 만들기 캠프", loc:"OO 키즈랩", items:"편한 옷, 물티슈, 개인 물병", dropOff:"", pickUp:"" } },
+  { start:"2026-07-06", days:7, camp:{ name:"수영 캠프", loc:"OO 커뮤니티센터 실내수영장", items:"수영복, 수경, 수모, 여벌옷, 방수가방", dropOff:"", pickUp:"" } },
+  { start:"2026-07-13", days:7, camp:{ name:"미술 & 공예 캠프", loc:"OO 아트스튜디오", items:"앞치마, 물티슈, 여벌 티셔츠", dropOff:"", pickUp:"" } },
+  { start:"2026-07-20", days:7, camp:{ name:"축구 캠프", loc:"OO 스포츠파크", items:"운동화, 정강이보호대, 물병, 선크림", dropOff:"", pickUp:"" } },
+  { start:"2026-07-27", days:7, camp:{ name:"요리 캠프", loc:"OO 키즈키친", items:"앞치마, 머리끈, 실내화", dropOff:"", pickUp:"" } },
+  { start:"2026-08-03", days:7, camp:{ name:"과학 탐구 캠프", loc:"OO 사이언스센터", items:"필기구, 여벌옷(실험용)", dropOff:"", pickUp:"" } },
+  { start:"2026-08-10", days:7, camp:{ name:"자연 & 캠핑 캠프", loc:"OO 자연학습원 (야외)", items:"편한 신발, 모기퇴치제, 여벌 양말, 우비", dropOff:"", pickUp:"" } },
+  { start:"2026-08-17", days:7, camp:{ name:"댄스 & 뮤지컬 캠프", loc:"OO 퍼포밍아츠센터", items:"YMCA\n", dropOff:"", pickUp:"" } },
+  { start:"2026-08-24", days:7, camp:{ name:"로봇 & 코딩 캠프", loc:"OO STEM 아카데미", items:"필기구, 개인 태블릿(있는 경우)", dropOff:"", pickUp:"" } },
+  { start:"2026-08-31", days:5, camp:{ name:"서머 스포츠 올림픽", loc:"OO 커뮤니티체육관", items:"운동화, 물병, 여벌옷, 선크림, 모자", dropOff:"", pickUp:"" } },
+];
+
+const WEEKEND_ACTIVITY_DEFAULT = {
+  5: { name:"주말 스포츠클럽", loc:"OO 커뮤니티센터 체육관" },
+  6: { name:"가족 쿠킹 클래스", loc:"OO 커뮤니티센터 키친" },
+};
+
+const SPECIAL_DAYS = {
+  "2026-07-08": { type:"water", note:"워터플레이 데이 — 여벌 수영복, 큰 타월, 방수가방 추가 준비" },
+  "2026-07-17": { type:"pizza", note:"피자데이 — 캠프에서 피자 제공, 도시락 준비 불필요" },
+  "2026-08-07": { type:"pizza", note:"피자데이 — 캠프에서 피자 제공, 도시락 준비 불필요" },
+  "2026-08-12": { type:"water", note:"워터플레이 데이 — 여벌 옷, 큰 타월, 방수가방 추가 준비" },
+  "2026-08-28": { type:"pizza", note:"피자데이 — 캠프에서 피자 제공, 도시락 준비 불필요" },
+};
+
+const SEASON_START_DEFAULT = WEEKS_DATA_DEFAULT[0].start;
+const WEEK_OFFSETS = (() => {
+  let acc = 0;
+  return WEEKS_DATA_DEFAULT.map(w => { const off = acc; acc += w.days; return off; });
+})();
+const TOTAL_SEASON_DAYS = WEEKS_DATA_DEFAULT.reduce((sum, w) => sum + w.days, 0);
+const SPECIAL_OFFSETS = Object.keys(SPECIAL_DAYS).map(dateStr => {
+  const base = new Date(SEASON_START_DEFAULT + "T00:00:00");
+  const d = new Date(dateStr + "T00:00:00");
+  const offset = Math.round((d - base) / 86400000);
+  return { offset, type: SPECIAL_DAYS[dateStr].type, note: SPECIAL_DAYS[dateStr].note };
+});
+
+const PLACEHOLDER_CAMP = { name: "캠프 이름", loc: "장소", items: "준비물", dropOff: "", pickUp: "" };
+const NO_CAMP_INFO_DAYS = { "2026-07-18": true };
+function isPlaceholderVal(v, ph) { return v === ph; }
+function weekLensForTotalDays(totalDays) {
+  const lens = [];
+  let remaining = totalDays;
+  while (remaining > 0) { const take = Math.min(7, remaining); lens.push(take); remaining -= take; }
+  return lens;
+}
+function parseDateRangeBounds(text) {
+  const matches = [...text.matchAll(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/g)];
+  if (!matches.length) return null;
+  const toIso = m => `${m[1]}-${String(m[2]).padStart(2, "0")}-${String(m[3]).padStart(2, "0")}`;
+  const startIso = toIso(matches[0]);
+  const endIso = matches[1] ? toIso(matches[1]) : null;
+  const startD = new Date(startIso + "T00:00:00");
+  if (isNaN(startD.getTime())) return null;
+  if (!endIso) return { start: startIso, totalDays: TOTAL_SEASON_DAYS };
+  const endD = new Date(endIso + "T00:00:00");
+  if (isNaN(endD.getTime())) return { start: startIso, totalDays: TOTAL_SEASON_DAYS };
+  const totalDays = Math.max(1, Math.round((endD - startD) / 86400000) + 1);
+  return { start: startIso, totalDays };
+}
+
+function addDays(dateStr, n) {
+  const d = new Date(dateStr + "T00:00:00");
+  d.setDate(d.getDate() + n);
+  return d;
+}
+function dateKey(d) { return d.toISOString().slice(0, 10); }
+function computeWeekStarts(seasonStartStr, totalDays) {
+  const lens = weekLensForTotalDays(totalDays);
+  const starts = [];
+  let off = 0;
+  lens.forEach(len => { starts.push(addDays(seasonStartStr, off)); off += len; });
+  return starts;
+}
+function computeSpecialMap(seasonStartStr) {
+  const map = {};
+  SPECIAL_OFFSETS.forEach(so => { map[dateKey(addDays(seasonStartStr, so.offset))] = { type: so.type, note: so.note }; });
+  return map;
+}
+function computeMonthDefs(seasonStartStr, totalDays) {
+  const start = addDays(seasonStartStr, 0);
+  const end = addDays(seasonStartStr, totalDays - 1);
+  const defs = [];
+  let cur = new Date(start.getFullYear(), start.getMonth(), 1);
+  const endMonth = new Date(end.getFullYear(), end.getMonth(), 1);
+  while (cur <= endMonth) { defs.push({ y: cur.getFullYear(), m: cur.getMonth() + 1 }); cur.setMonth(cur.getMonth() + 1); }
+  return defs;
+}
+function formatDateRange(seasonStartStr, totalDays) {
+  const start = addDays(seasonStartStr, 0);
+  const end = addDays(seasonStartStr, totalDays - 1);
+  const f = d => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+  return `${f(start)} – ${f(end)}`;
+}
+
+const BREAKFAST_BY_DOW = ["토스트 + 스크램블에그 + 우유","시리얼 + 바나나 + 우유","흰죽 + 김 + 과일","프렌치토스트 + 딸기","오트밀 + 블루베리 + 견과류","계란말이 + 밥 + 김","요거트볼 (그래놀라 + 과일)"];
+const WEEKDAY_LUNCH = ["소불고기 주먹밥 + 계란말이 + 방울토마토","치킨너겟 + 브로콜리 + 옥수수","참치마요 김밥 + 어묵볶음","유부초밥 + 미니돈까스","스파게티(미트소스) + 방울토마토","야채볶음밥 + 계란후라이","햄치즈 샌드위치 + 포도","잡채 + 소시지야채볶음","카레라이스 + 브로콜리","오므라이스 + 방울토마토"];
+const DINNER_ROTATION = ["된장찌개 + 밥 + 계란찜 + 나물","갈비찜 + 밥 + 시금치나물","제육볶음 + 밥 + 콩나물국","순두부찌개 + 밥 + 멸치볶음","닭볶음탕 + 밥 + 오이무침","불고기 + 밥 + 미역국","고등어구이 + 밥 + 배추된장국","잡채밥 + 계란국","김치찌개 + 밥 + 어묵볶음","크림파스타 + 샐러드"];
+const WEEKEND_LUNCH = ["갈비탕 + 밥","비빔밥 + 계란후라이","콩국수","삼계탕","냉면 + 만두","떡볶이 + 순대 + 김밥"];
+
+function getTodayKey() {
+  const t = new Date(); t.setHours(0, 0, 0, 0);
+  return t.toISOString().slice(0, 10);
+}
+
+function campFor(weeksData, weekIdx) {
+  return (weeksData[weekIdx] && weeksData[weekIdx].camp) || PLACEHOLDER_CAMP;
+}
+function getDefaultMonthIdx(monthDefs) {
+  const t = new Date();
+  const y = t.getFullYear(), m = t.getMonth() + 1;
+  const idx = monthDefs.findIndex(md => md.y === y && md.m === m);
+  return idx >= 0 ? idx : 0;
+}
+
+function getDefaultWeekIdx(weekStarts, weekLens) {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  for (let i = 0; i < weekStarts.length; i++) {
+    const start = weekStarts[i];
+    const end = new Date(start); end.setDate(start.getDate() + weekLens[i] - 1);
+    if (today >= start && today <= end) return i;
+  }
+  for (let i = 0; i < weekStarts.length; i++) {
+    if (today < weekStarts[i]) return i;
+  }
+  return weekStarts.length - 1;
+}
+
+const GROCERY_DEFAULT = {
+  korean: ["된장","고추장","김치","멸치 / 다시마 (육수용)","순두부","미역 (국용)","두부","어묵","유부","잡채용 당면","콩나물","김 (조미김 / 생김)","참기름 / 들기름","냉면 사리","만두","떡볶이 떡","순대","삼계탕용 영계 + 부재료","갈비 (갈비찜 / 갈비탕용)"],
+  local: ["계란","우유","식빵","버터","요거트","치즈","시리얼","그래놀라","오트밀","스파게티 면","소고기 (불고기용)","돼지고기 (제육 / 돈까스용)","닭고기 (닭볶음탕 / 너겟용)","고등어","소시지 / 햄","냉동 피자(비상용)","바나나","딸기 / 블루베리","포도","방울토마토","오이","브로콜리 / 옥수수","감자 / 당근 / 양파","시금치","견과류","미트소스 / 크림소스","식용유 / 소금 / 후추 / 설탕"]
+};
+
+function buildSchedule(weeksData, weekendMap, confirmedMenus, lunchOverride, specialDaysMap) {
+  const dayMap = {};
+  const allWeeks = [];
+  const pick = (list, counterObj, key) => {
+    if (!list || !list.length) return "";
+    const v = list[counterObj[key] % list.length];
+    counterObj[key]++;
+    return v.text;
+  };
+  const counters = { breakfastCounter: 0, dosirakCounter: 0, lunchHomeCounter: 0, dinnerCounter: 0 };
+  weeksData.forEach((weekDef, wIdx) => {
+    const start = new Date(weekDef.start + "T00:00:00");
+    const days = [];
+    for (let i = 0; i < weekDef.days; i++) {
+      const d = new Date(start); d.setDate(start.getDate() + i);
+      const key = d.toISOString().slice(0, 10);
+      const jsDow = d.getDay();
+      const ourDow = (jsDow + 6) % 7;
+      const isWeekend = ourDow >= 5;
+      const special = specialDaysMap[key];
+      const breakfast = pick(confirmedMenus.breakfast, counters, "breakfastCounter");
+      const override = lunchOverride[key];
+      const canToggleLunch = !isWeekend;
+      let lunch, lunchType;
+      if (!isWeekend && override === "none") {
+        lunch = "도시락 없음"; lunchType = "none";
+      } else if (!isWeekend && override === "home") {
+        lunch = pick(confirmedMenus.lunch, counters, "lunchHomeCounter"); lunchType = "home";
+      } else if (!isWeekend && override === "pizza") {
+        lunch = "피자 (수동 지정)"; lunchType = "pizza";
+      } else if (special && special.type === "pizza") {
+        lunch = "피자 (캠프 제공)"; lunchType = "pizza";
+      } else if (isWeekend) {
+        lunch = pick(confirmedMenus.lunch, counters, "lunchHomeCounter"); lunchType = "home";
+      } else {
+        lunch = pick(confirmedMenus.dosirak, counters, "dosirakCounter"); lunchType = "dosirak";
+      }
+      const dinner = pick(confirmedMenus.dinner, counters, "dinnerCounter");
+      const displaySpecial = special || (!isWeekend && override === "pizza" ? { type: "pizza", note: "피자데이 — 캠프에서 피자 제공, 도시락 준비 불필요" } : null);
+      const dayObj = {
+        key, date: d, weekIdx: wIdx, label: DOW_LABEL[ourDow], isWeekend,
+        hasCamp: !isWeekend,
+        weekendDow: isWeekend ? ourDow : null,
+        weekendAct: isWeekend ? weekendMap[ourDow] : null,
+        breakfast,
+        lunch, lunchType, dinner,
+        special: special || null,
+        displaySpecial,
+        canToggleLunch,
+        lunchOverride: override || "dosirak",
+      };
+      days.push(dayObj);
+      dayMap[key] = dayObj;
+    }
+    allWeeks.push(days);
+  });
+  return { dayMap, allWeeks };
+}
+
+const refreshBtnStyle = { background: "none", border: "none", cursor: "pointer", padding: 0, marginLeft: "5px", opacity: 0.65, display: "inline-flex" };
+const lunchTogglePillBase = { display: "inline-flex", alignItems: "center", borderRadius: "999px", padding: "2px 10px", fontSize: "10.5px", marginLeft: "6px", cursor: "pointer", border: "none" };
+function lunchToggleView(overrideVal) {
+  if (overrideVal === "none") {
+    return { label: "도시락 없음", style: { ...lunchTogglePillBase, background: "color-mix(in srgb, var(--color-accent) 20%, white)", color: "var(--color-accent)", fontWeight: 800 } };
+  }
+  if (overrideVal === "home") {
+    return { label: "집밥", style: { ...lunchTogglePillBase, background: "color-mix(in srgb, var(--color-accent) 20%, white)", color: "var(--color-accent)", fontWeight: 800 } };
+  }
+  if (overrideVal === "pizza") {
+    return { label: "피자데이", style: { ...lunchTogglePillBase, background: "color-mix(in srgb, var(--color-accent) 20%, white)", color: "var(--color-accent)", fontWeight: 800 } };
+  }
+  return { label: "도시락 없음", style: { ...lunchTogglePillBase, background: "none", color: "var(--color-text)", opacity: 0.55, fontWeight: 500, border: "1px solid var(--color-divider)" } };
+}
+
+function mealsFor(day, mealOverrides) {
+  const lunchLabel = day.lunchType === "pizza" ? "피자데이" : day.lunchType === "dosirak" ? "도시락" : day.lunchType === "none" ? "도시락 없음" : "점심 · 집밥";
+  return [
+    { label: "아침", fieldKey: "breakfast", text: mealOverrides[`${day.key}|breakfast`] ?? day.breakfast },
+    { label: lunchLabel, fieldKey: "lunch", text: mealOverrides[`${day.key}|lunch`] ?? day.lunch },
+    { label: "저녁", fieldKey: "dinner", text: mealOverrides[`${day.key}|dinner`] ?? day.dinner },
+  ];
+}
+
+const tabActiveStyle = { flex: 1, padding: "12px 0", border: "none", cursor: "pointer", background: "var(--color-accent)", color: "var(--color-bg)", fontSize: "13px", fontWeight: 700, letterSpacing: "0.06em" };
+const tabInactiveStyle = { flex: 1, padding: "12px 0", border: "none", cursor: "pointer", background: "var(--color-neutral-200)", color: "var(--color-text)", fontSize: "13px", fontWeight: 700, opacity: 0.55, letterSpacing: "0.06em" };
+
+class Component extends DCLogic {
+  centerWeekTab(idx) {
+    const nav = document.getElementById("week-tabs-nav");
+    const btn = document.getElementById(`week-tab-${idx}`);
+    if (!btn || !nav) return;
+    const navRect = nav.getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+    const btnCenterInNav = (btnRect.left - navRect.left) + nav.scrollLeft + btnRect.width / 2;
+    const target = btnCenterInNav - nav.clientWidth / 2;
+    nav.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+  }
+
+  centerWeekTabRobust(idx) {
+    this.centerWeekTab(idx);
+    setTimeout(() => this.centerWeekTab(idx), 200);
+    setTimeout(() => this.centerWeekTab(idx), 500);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => this.centerWeekTab(idx));
+    }
+  }
+
+  centerTodayCard() {
+    const el = document.getElementById(`day-card-${getTodayKey()}`);
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const target = window.scrollY + rect.top - 12;
+    window.scrollTo({ top: Math.max(0, target), behavior: "smooth" });
+  }
+
+  centerTodayCardRobust() {
+    this.centerTodayCard();
+    setTimeout(() => this.centerTodayCard(), 200);
+    setTimeout(() => this.centerTodayCard(), 500);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => this.centerTodayCard());
+    }
+  }
+
+  componentDidMount() {
+    this.restoreLocalSnapshot();
+    this.initSync();
+    setTimeout(() => this.centerWeekTabRobust(this.state.weekIdx), 50);
+    setTimeout(() => this.centerTodayCardRobust(), 120);
+    this._outsideClick = e => {
+      if (!this.state.editingKey) return;
+      if (e.target.closest && e.target.closest("input.input")) return;
+      const input = document.querySelector("input.input");
+      if (input) input.blur();
+      this.setState(s => (s.editingKey ? { editingKey: null } : null));
+    };
+    document.addEventListener("mousedown", this._outsideClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this._outsideClick);
+  }
+
+  getSyncSnapshot() {
+    const s = this.state;
+    const { editingKey, editingDraft, syncId, syncStatus, syncCodeInput, showSyncCodeEntry, syncCopied, ...rest } = s;
+    return rest;
+  }
+
+  restoreLocalSnapshot() {
+    try {
+      const raw = localStorage.getItem("summerDashLocalState");
+      if (raw) {
+        const data = JSON.parse(raw);
+        delete data.editingKey;
+        delete data.editingDraft;
+        delete data.pendingCustomKey;
+        delete data.syncCodeInput;
+        delete data.showSyncCodeEntry;
+        delete data.syncCopied;
+        this._hasLocalData = true;
+        this._applyingRemote = true;
+        this.setState(prev => ({ ...prev, ...data }), () => { this._applyingRemote = false; });
+      }
+    } catch (e) {}
+  }
+
+  saveLocalSnapshot() {
+    try {
+      localStorage.setItem("summerDashLocalState", JSON.stringify(this.getSyncSnapshot()));
+      localStorage.setItem("summerDashLocalUpdatedAt", String(Date.now()));
+    } catch (e) {}
+  }
+
+  async initSync() {
+    const params = new URLSearchParams(window.location.search);
+    const urlId = params.get("sync");
+    const storedId = localStorage.getItem("summerDashSyncId");
+    const id = urlId || storedId;
+    if (id) {
+      this.setState({ syncId: id, syncStatus: "loading" });
+      try {
+        const res = await fetch(`https://jsonblob.com/api/jsonBlob/${id}`, { headers: { Accept: "application/json" } });
+        if (res.ok) {
+          const payload = await res.json();
+          const localUpdatedAt = Number(localStorage.getItem("summerDashLocalUpdatedAt") || 0);
+          const remoteUpdatedAt = Number(payload && payload.__updatedAt || 0);
+          const shouldApply = payload && payload.data && (!this._hasLocalData || remoteUpdatedAt > localUpdatedAt);
+          if (shouldApply) {
+            const remoteData = { ...payload.data };
+            delete remoteData.editingKey;
+            delete remoteData.editingDraft;
+            delete remoteData.pendingCustomKey;
+            this._applyingRemote = true;
+            this.setState(prev => ({ ...prev, ...remoteData, syncId: id, syncStatus: "synced" }), () => { this._applyingRemote = false; });
+          } else {
+            this.setState({ syncStatus: "synced" });
+          }
+        } else {
+          this.setState({ syncStatus: "error" });
+        }
+      } catch (e) {
+        this.setState({ syncStatus: "error" });
+      }
+      localStorage.setItem("summerDashSyncId", id);
+      if (!urlId) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("sync", id);
+        window.history.replaceState({}, "", url);
+      }
+    } else {
+      this.createSyncBlob();
+    }
+  }
+
+  async createSyncBlob() {
+    this.setState({ syncStatus: "loading" });
+    try {
+      const res = await fetch("https://jsonblob.com/api/jsonBlob", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ __updatedAt: Date.now(), data: this.getSyncSnapshot() }),
+      });
+      const location = res.headers.get("Location") || "";
+      const id = location.split("/").pop();
+      if (id) {
+        localStorage.setItem("summerDashSyncId", id);
+        const url = new URL(window.location.href);
+        url.searchParams.set("sync", id);
+        window.history.replaceState({}, "", url);
+        this.setState({ syncId: id, syncStatus: "synced" });
+      } else {
+        this.setState({ syncStatus: "error" });
+      }
+    } catch (e) {
+      this.setState({ syncStatus: "error" });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this._applyingRemote) return;
+    if (!prevState) return;
+    const prevSnap = JSON.stringify((() => { const { editingKey, editingDraft, syncId, syncStatus, syncCodeInput, showSyncCodeEntry, syncCopied, ...rest } = prevState; return rest; })());
+    const curSnap = JSON.stringify(this.getSyncSnapshot());
+    if (prevSnap === curSnap) return;
+    this.saveLocalSnapshot();
+    if (!this.state.syncId) return;
+    clearTimeout(this._syncSaveTimer);
+    this._syncSaveTimer = setTimeout(() => this.saveSyncBlob(), 900);
+  }
+
+  async saveSyncBlob() {
+    if (!this.state.syncId) return;
+    this.setState({ syncStatus: "saving" });
+    try {
+      const res = await fetch(`https://jsonblob.com/api/jsonBlob/${this.state.syncId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ __updatedAt: Date.now(), data: this.getSyncSnapshot() }),
+      });
+      this.setState({ syncStatus: res.ok ? "synced" : "error" });
+    } catch (e) {
+      this.setState({ syncStatus: "error" });
+    }
+  }
+
+  copySyncLink() {
+    const url = new URL(window.location.href);
+    url.searchParams.set("sync", this.state.syncId);
+    navigator.clipboard && navigator.clipboard.writeText(url.toString());
+    this.setState({ syncCopied: true });
+    setTimeout(() => this.setState({ syncCopied: false }), 1500);
+  }
+
+  loadOtherSyncCode() {
+    const code = (this.state.syncCodeInput || "").trim();
+    if (!code) return;
+    localStorage.setItem("summerDashSyncId", code);
+    const url = new URL(window.location.href);
+    url.searchParams.set("sync", code);
+    window.location.href = url.toString();
+  }
+
+  retrySync() {
+    if (this.state.syncId) this.saveSyncBlob();
+    else this.createSyncBlob();
+  }
+
+  toggleDayStatus(dayKey, label) {
+    this.setState(s => {
+      const arr = s.dayStatusOverride[dayKey] || [];
+      const active = arr.includes(label);
+      const newArr = active ? arr.filter(l => l !== label) : [...arr, label];
+      const lo = { ...s.lunchOverride };
+      if (newArr.includes("피자데이")) lo[dayKey] = "pizza";
+      else if (lo[dayKey] === "pizza") delete lo[dayKey];
+      return { dayStatusOverride: { ...s.dayStatusOverride, [dayKey]: newArr }, lunchOverride: lo };
+    });
+  }
+
+  toggleHoliday(dayKey) {
+    this.setState(s => {
+      const isHoliday = !!s.dayHolidayOverride[dayKey];
+      if (!isHoliday) {
+        const backup = {
+          lunchOverride: s.lunchOverride[dayKey],
+          statusArr: s.dayStatusOverride[dayKey] || [],
+          dismissedAutoSpecial: !!s.dismissedAutoSpecial[dayKey],
+        };
+        const lo = { ...s.lunchOverride };
+        if (!lo[dayKey] || lo[dayKey] === "pizza") lo[dayKey] = "home";
+        return {
+          dayHolidayOverride: { ...s.dayHolidayOverride, [dayKey]: true },
+          holidayBackup: { ...s.holidayBackup, [dayKey]: backup },
+          lunchOverride: lo,
+          dayStatusOverride: { ...s.dayStatusOverride, [dayKey]: [] },
+          dismissedAutoSpecial: { ...s.dismissedAutoSpecial, [dayKey]: true },
+        };
+      }
+      const backup = s.holidayBackup[dayKey] || {};
+      const lo = { ...s.lunchOverride };
+      if (backup.lunchOverride === undefined) delete lo[dayKey]; else lo[dayKey] = backup.lunchOverride;
+      const das = { ...s.dismissedAutoSpecial };
+      if (backup.dismissedAutoSpecial) das[dayKey] = true; else delete das[dayKey];
+      const dho = { ...s.dayHolidayOverride };
+      delete dho[dayKey];
+      return {
+        dayHolidayOverride: dho,
+        lunchOverride: lo,
+        dayStatusOverride: { ...s.dayStatusOverride, [dayKey]: backup.statusArr || [] },
+        dismissedAutoSpecial: das,
+      };
+    });
+  }
+
+  dismissAutoSpecial(dayKey) {
+    this.setState(s => ({ dismissedAutoSpecial: { ...s.dismissedAutoSpecial, [dayKey]: true } }));
+  }
+
+  dayHasBadge(day) {
+    const s = this.state;
+    const arr = s.dayStatusOverride[day.key] || [];
+    if (arr.length) return true;
+    return !!day.displaySpecial && !s.dismissedAutoSpecial[day.key];
+  }
+
+  openActivityAdd(dayKey) {
+    this.setState(s => {
+      const list = s.dayActivities[dayKey] || [];
+      const newList = [...list, { name: "", time: "", loc: "" }];
+      return {
+        dayActivities: { ...s.dayActivities, [dayKey]: newList },
+        editingKey: `activity-name-${dayKey}-${newList.length - 1}`,
+        editingDraft: "",
+      };
+    });
+  }
+
+  deleteDayActivity(dayKey, idx) {
+    this.setState(s => ({
+      dayActivities: { ...s.dayActivities, [dayKey]: (s.dayActivities[dayKey] || []).filter((_, i) => i !== idx) },
+    }));
+  }
+
+  commitActivityAdd(dayKey) {
+  }
+
+  buildDayActivities(dayKey) {
+    const s = this.state;
+    const arr = s.dayActivities[dayKey] || [];
+    return arr.map((act, idx) => {
+      const timeField = { ...this.makeEditableField(`activity-time-${dayKey}-${idx}`, act.time || "", v => this.updateActivityField(dayKey, idx, "time", v)), displayValue: act.time || "시간" };
+      timeField.displayStyle = { fontSize: "12.5px", fontWeight: 400, opacity: act.time ? .55 : 1, lineHeight: "16px", height: "16px", boxSizing: "border-box", cursor: "text", color: act.time ? "var(--color-text)" : "color-mix(in srgb, var(--color-text) 38%, transparent)" };
+      const locField = { ...this.makeEditableField(`activity-loc-${dayKey}-${idx}`, act.loc || "", v => this.updateActivityField(dayKey, idx, "loc", v)), displayValue: act.loc || "장소" };
+      locField.displayStyle = { fontSize: "12.5px", fontWeight: 400, opacity: act.loc ? .55 : 1, lineHeight: "16px", height: "16px", boxSizing: "border-box", cursor: "text", color: act.loc ? "var(--color-text)" : "color-mix(in srgb, var(--color-text) 38%, transparent)" };
+      return {
+        nameField: this.makeEditableField(`activity-name-${dayKey}-${idx}`, act.name, v => {
+          if (!v.trim()) this.deleteDayActivity(dayKey, idx);
+          else this.updateActivityField(dayKey, idx, "name", v);
+        }),
+        nameDisplayText: act.name || "활동명",
+        nameDisplayStyle: { fontSize: "calc(16px * var(--dash-scale))", fontWeight: 800, color: act.name ? "var(--color-text)" : "var(--color-neutral-400)", cursor: "text" },
+        isLast: idx === arr.length - 1,
+        onAddMore: () => this.openActivityAdd(dayKey),
+        showMeta: !!act.name,
+        timeField, locField,
+        isLast: idx === arr.length - 1,
+        onDelete: () => this.deleteDayActivity(dayKey, idx),
+      };
+    });
+  }
+
+  updateActivityField(dayKey, idx, field, value) {
+    this.setState(s => ({
+      dayActivities: { ...s.dayActivities, [dayKey]: (s.dayActivities[dayKey] || []).map((a, i) => i === idx ? { ...a, [field]: value } : a) },
+    }));
+  }
+
+  onCustomStatus(dayKey) {
+    this.setState({ editingKey: `special-${dayKey}`, editingDraft: "", pendingCustomKey: dayKey });
+  }
+
+  staticBadgeField(text) {
+    return { isEditing: false, isNotEditing: true, value: text, draftValue: text, onStartEdit: () => {}, onChangeDraft: () => {}, onCommit: () => {}, onKeyDown: () => {} };
+  }
+
+  computeDayBadges(day) {
+    const s = this.state;
+    const badges = [];
+    const activeToggles = s.dayStatusOverride[day.key] || [];
+    const autoLabelMap = { pizza: "피자데이", water: "워터플레이" };
+    const autoDupe = day.displaySpecial && activeToggles.includes(autoLabelMap[day.displaySpecial.type]);
+    if (day.displaySpecial && !s.dismissedAutoSpecial[day.key] && !autoDupe) {
+      const text = s.specialNotes[day.key] ?? day.displaySpecial.note;
+      badges.push({
+        key: `auto-${day.key}`,
+        field: this.makeEditableField(`special-${day.key}`, text, v => {
+          if (v.trim()) this.setState(s2 => ({ specialNotes: { ...s2.specialNotes, [day.key]: v } }));
+          else this.dismissAutoSpecial(day.key);
+        }),
+        onDelete: () => this.dismissAutoSpecial(day.key),
+      });
+    }
+    (s.dayStatusOverride[day.key] || []).forEach(label => {
+      badges.push({
+        key: `status-${day.key}-${label}`,
+        field: this.staticBadgeField(label),
+        onDelete: () => this.toggleDayStatus(day.key, label),
+      });
+    });
+    return badges;
+  }
+
+  
+
+  cycleLunchOverride(dayKey, current) {
+    const order = [undefined, "none", "home", "pizza"];
+    const idx = order.indexOf(current);
+    const next = order[(idx + 1) % order.length];
+    this.setState(s => {
+      const lo = { ...s.lunchOverride };
+      if (next === undefined) delete lo[dayKey]; else lo[dayKey] = next;
+      return { lunchOverride: lo };
+    });
+  }
+
+  addMenuItem(cat) {
+    const val = (this.state.confirmedMenuInputs[cat] || "").trim();
+    if (!val) return;
+    const link = (this.state.confirmedMenuLinkInputs[cat] || "").trim();
+    this.setState(s => ({
+      confirmedMenus: { ...s.confirmedMenus, [cat]: [...s.confirmedMenus[cat], { text: val, link }] },
+      confirmedMenuInputs: { ...s.confirmedMenuInputs, [cat]: "" },
+      confirmedMenuLinkInputs: { ...s.confirmedMenuLinkInputs, [cat]: "" },
+    }));
+  }
+
+  deleteMenuItem(cat, idx) {
+    this.setState(s => ({
+      confirmedMenus: { ...s.confirmedMenus, [cat]: s.confirmedMenus[cat].filter((_, i) => i !== idx) },
+    }));
+  }
+
+  updateMenuItem(cat, idx, value) {
+    this.setState(s => ({
+      confirmedMenus: { ...s.confirmedMenus, [cat]: s.confirmedMenus[cat].map((it, i) => i === idx ? { ...it, text: value } : it) },
+    }));
+  }
+
+  randomizeMeal(dayKey, field, list, currentValue) {
+    if (!list || !list.length) return;
+    const choices = list.length > 1 ? list.filter(x => x.text !== currentValue) : list;
+    const pick = choices[Math.floor(Math.random() * choices.length)];
+    this.commitMealOverride(dayKey, field, pick.text);
+  }
+
+  state = {
+    tab: "schedule",
+    viewMode: "week",
+    weekIdx: getDefaultWeekIdx(computeWeekStarts(SEASON_START_DEFAULT, TOTAL_SEASON_DAYS), weekLensForTotalDays(TOTAL_SEASON_DAYS)),
+    monthIdx: getDefaultMonthIdx(computeMonthDefs(SEASON_START_DEFAULT, TOTAL_SEASON_DAYS)),
+    selectedKey: null,
+    seasonStart: SEASON_START_DEFAULT,
+    seasonTotalDays: TOTAL_SEASON_DAYS,
+        dashboardTitle: "SCHEDULER",
+    weeksData: JSON.parse(JSON.stringify(WEEKS_DATA_DEFAULT)),
+    weekendActivity: JSON.parse(JSON.stringify(WEEKEND_ACTIVITY_DEFAULT)),
+    mealOverrides: {},
+    specialNotes: {},
+    dayNotes: {},
+    lunchOverride: {},
+    dayStatusOverride: {},
+    dismissedAutoSpecial: {},
+    dayHolidayOverride: {},
+    holidayBackup: {},
+    pendingCustomKey: null,
+    dayActivities: {},
+    monthSelectedCampIdx: null,
+    confirmedMenus: {
+      breakfast: BREAKFAST_BY_DOW.map(t => ({ text: t, link: "" })),
+      lunch: WEEKEND_LUNCH.map(t => ({ text: t, link: "" })),
+      dosirak: WEEKDAY_LUNCH.map(t => ({ text: t, link: "" })),
+      dinner: DINNER_ROTATION.map(t => ({ text: t, link: "" })),
+    },
+    confirmedMenuInputs: { breakfast: "", lunch: "", dosirak: "", dinner: "" },
+    confirmedMenuLinkInputs: { breakfast: "", lunch: "", dosirak: "", dinner: "" },
+    editingKey: null,
+    editingDraft: "",
+    store: "korean",
+    groceryData: JSON.parse(JSON.stringify(GROCERY_DEFAULT)),
+    groceryChecked: { korean: [], local: [] },
+    groceryInput: "",
+    syncId: null,
+    syncStatus: "idle",
+    syncCodeInput: "",
+    showSyncCodeEntry: false,
+    syncCopied: false,
+  };
+
+  updateCampField(weekIdx, field, value) {
+    this.setState(s => {
+      const arr = s.weeksData.slice();
+      while (arr.length <= weekIdx) arr.push({ camp: { ...PLACEHOLDER_CAMP } });
+      arr[weekIdx] = { ...arr[weekIdx], camp: { ...arr[weekIdx].camp, [field]: value } };
+      return { weeksData: arr };
+    });
+  }
+
+  campFor(weekIdx) { return campFor(this.state.weeksData, weekIdx); }
+
+  updateMenuItemLink(cat, idx, value) {
+    this.setState(s => ({
+      confirmedMenus: { ...s.confirmedMenus, [cat]: s.confirmedMenus[cat].map((it, i) => i === idx ? { ...it, link: value } : it) },
+    }));
+  }
+
+  commitMealOverride(dayKey, field, value) {
+    this.setState(s => ({ mealOverrides: { ...s.mealOverrides, [`${dayKey}|${field}`]: value } }));
+  }
+
+  commitWeekendField(dow, field, value) {
+    this.setState(s => ({ weekendActivity: { ...s.weekendActivity, [dow]: { ...s.weekendActivity[dow], [field]: value } } }));
+  }
+
+  commitSpecialNote(dayKey, value) {
+    this.setState(s => ({ specialNotes: { ...s.specialNotes, [dayKey]: value } }));
+  }
+
+  commitDayNote(dayKey, value) {
+    this.setState(s => ({ dayNotes: { ...s.dayNotes, [dayKey]: value } }));
+  }
+
+  makeEditableField(key, value, commitFn) {
+    const editing = this.state.editingKey === key;
+    return {
+      isEditing: editing,
+      isNotEditing: !editing,
+      value,
+      draftValue: editing ? this.state.editingDraft : value,
+      onStartEdit: () => this.setState({ editingKey: key, editingDraft: value }),
+      onChangeDraft: e => this.setState({ editingDraft: e.target.value }),
+      onCommit: () => { commitFn(this.state.editingDraft); this.setState({ editingKey: null }); },
+      onKeyDown: e => {
+        if (e.key === "Enter") { commitFn(this.state.editingDraft); this.setState({ editingKey: null }); }
+        if (e.key === "Escape") this.setState({ editingKey: null });
+      },
+    };
+  }
+
+  toggleGroceryChecked(store, item) {
+    this.setState(s => {
+      const list = s.groceryChecked[store];
+      const has = list.includes(item);
+      const next = has ? list.filter(x => x !== item) : [...list, item];
+      return { groceryChecked: { ...s.groceryChecked, [store]: next } };
+    });
+  }
+
+  addGroceryItemImpl() {
+    const val = this.state.groceryInput.trim();
+    if (!val) return;
+    this.setState(s => ({
+      groceryData: { ...s.groceryData, [s.store]: [val, ...s.groceryData[s.store]] },
+      groceryInput: "",
+    }));
+  }
+
+  renameGroceryItem(store, idx, oldVal, newVal) {
+    const val = newVal.trim();
+    if (!val) return;
+    this.setState(s => {
+      const list = s.groceryData[store].slice();
+      list[idx] = val;
+      const checkedList = s.groceryChecked[store];
+      const wasChecked = checkedList.includes(oldVal);
+      const newChecked = wasChecked ? checkedList.filter(x => x !== oldVal).concat(val) : checkedList;
+      return {
+        groceryData: { ...s.groceryData, [store]: list },
+        groceryChecked: { ...s.groceryChecked, [store]: newChecked },
+      };
+    });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const weekLens = weekLensForTotalDays(s.seasonTotalDays);
+    const weekStarts = computeWeekStarts(s.seasonStart, s.seasonTotalDays);
+    const effectiveWeeksData = weekLens.map((days, i) => ({
+      start: dateKey(weekStarts[i]), days, camp: this.campFor(i),
+    }));
+    const specialDaysMap = computeSpecialMap(s.seasonStart);
+    const monthDefs = computeMonthDefs(s.seasonStart, s.seasonTotalDays);
+    const { dayMap, allWeeks } = buildSchedule(effectiveWeeksData, s.weekendActivity, s.confirmedMenus, s.lunchOverride, specialDaysMap);
+
+    const accent = this.props.accentColor ?? "#ec3013";
+    const scale = (this.props.layoutScale ?? "compact") === "comfortable" ? 1.22 : 1.08;
+    const indicatorMode = this.props.monthIndicator ?? "bar";
+    const indicatorIsBar = indicatorMode === "bar";
+    const indicatorIsDot = indicatorMode === "dot";
+
+    const frameStyle = {
+      width: "374px", maxWidth: "374px", minWidth: "374px", minHeight: "100vh", margin: "0 auto",
+      background: "var(--color-bg)", boxShadow: "var(--shadow-lg)", padding: "12px 18px 32px",
+      "--dash-scale": scale,
+      "--space-2": `calc(8px * ${scale})`,
+      "--space-3": `calc(12px * ${scale})`,
+      "--space-4": `calc(16px * ${scale})`,
+      "--color-accent": accent,
+      "--color-accent-100": `color-mix(in srgb, ${accent} 12%, white)`,
+      "--color-accent-600": `color-mix(in srgb, ${accent} 80%, black)`,
+      "--color-accent-700": `color-mix(in srgb, ${accent} 65%, black)`,
+      "--color-accent-800": `color-mix(in srgb, ${accent} 55%, black)`,
+    };
+
+    const titleField = this.makeEditableField("dashboard-title", s.dashboardTitle, v => this.setState({ dashboardTitle: v }));
+    const dateRangeField = this.makeEditableField("dashboard-daterange", formatDateRange(s.seasonStart, s.seasonTotalDays), v => {
+      const parsed = parseDateRangeBounds(v);
+      if (parsed) this.setState({ seasonStart: parsed.start, seasonTotalDays: parsed.totalDays, selectedKey: null });
+    });
+
+    const weekTabs = effectiveWeeksData.map((w, i) => {
+      const d = new Date(w.start + "T00:00:00");
+      const mo = d.getMonth() + 1;
+      const firstOfMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+      const firstWeekday = (firstOfMonth.getDay() + 6) % 7;
+      const weekOfMonth = Math.ceil((d.getDate() + firstWeekday) / 7);
+      return {
+        label: `${mo}월 ${weekOfMonth}주`,
+        id: `week-tab-${i}`,
+        onSelect: () => this.setState({ weekIdx: i }, () => this.centerWeekTab(i)),
+        style: {
+          flex: "0 0 auto", padding: "8px 14px", cursor: "pointer", background: "none",
+          border: "none",
+          color: i === s.weekIdx ? "var(--color-accent)" : "var(--color-text)",
+          fontWeight: i === s.weekIdx ? 800 : 500,
+          fontSize: "13px", opacity: i === s.weekIdx ? 1 : 0.55, borderRadius: 0,
+        },
+      };
+    });
+
+    const camp = this.campFor(s.weekIdx);
+    const campNameField = { ...this.makeEditableField(`wk-banner-name-${s.weekIdx}`, camp.name, v => this.updateCampField(s.weekIdx, "name", v)), isPlaceholder: isPlaceholderVal(camp.name, PLACEHOLDER_CAMP.name) };
+    campNameField.textStyle = { fontSize: "calc(21.6px * var(--dash-scale))", fontWeight: 800, cursor: "text", marginTop: "-0.7px", marginBottom: "6px", color: campNameField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-accent)" };
+    const campLocField = { ...this.makeEditableField(`wk-banner-loc-${s.weekIdx}`, camp.loc, v => this.updateCampField(s.weekIdx, "loc", v)), isPlaceholder: isPlaceholderVal(camp.loc, PLACEHOLDER_CAMP.loc) };
+    campLocField.textStyle = { fontSize: "13px", fontWeight: 400, cursor: "text", marginTop: "-4px", lineHeight: "1.1", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block", color: campLocField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-text)", opacity: campLocField.isPlaceholder ? 1 : 0.6 };
+    campLocField.displayText = campLocField.isPlaceholder ? camp.loc : `장소 · ${camp.loc}`;
+    campLocField.hasPrefix = !campLocField.isPlaceholder;
+    const campItemsField = { ...this.makeEditableField(`wk-banner-items-${s.weekIdx}`, camp.items, v => this.updateCampField(s.weekIdx, "items", v)), isPlaceholder: isPlaceholderVal(camp.items, PLACEHOLDER_CAMP.items) };
+    campItemsField.textStyle = { fontSize: "13px", fontWeight: 400, cursor: "text", marginTop: "-4px", lineHeight: "1.1", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block", color: campItemsField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-text)", opacity: campItemsField.isPlaceholder ? 1 : 0.6 };
+    campItemsField.displayText = campItemsField.isPlaceholder ? camp.items : `준비물 · ${camp.items}`;
+    campItemsField.hasPrefix = !campItemsField.isPlaceholder;
+    const campDropOffField = { ...this.makeEditableField(`wk-banner-dropOff-${s.weekIdx}`, camp.dropOff || "", v => this.updateCampField(s.weekIdx, "dropOff", v)), displayValue: camp.dropOff || "HH:MM" };
+    const campPickUpField = { ...this.makeEditableField(`wk-banner-pickUp-${s.weekIdx}`, camp.pickUp || "", v => this.updateCampField(s.weekIdx, "pickUp", v)), displayValue: camp.pickUp || "HH:MM" };
+
+    const days = allWeeks[s.weekIdx].map(day => {
+      const isCamp = day.hasCamp;
+      let labelField, locField;
+      if (isCamp) {
+        const c = this.campFor(day.weekIdx);
+        labelField = { ...this.makeEditableField(`wk-day-name-${day.key}`, c.name, v => this.updateCampField(day.weekIdx, "name", v)), isPlaceholder: isPlaceholderVal(c.name, PLACEHOLDER_CAMP.name) };
+        labelField.textColor = labelField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-text)";
+        locField = { ...this.makeEditableField(`wk-day-loc-${day.key}`, c.loc, v => this.updateCampField(day.weekIdx, "loc", v)), isPlaceholder: isPlaceholderVal(c.loc, PLACEHOLDER_CAMP.loc) };
+        locField.textColor = locField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-text)";
+      } else {
+        const wa = s.weekendActivity[day.weekendDow];
+        labelField = this.makeEditableField(`weekend-name-${day.weekendDow}`, wa.name, v => this.commitWeekendField(day.weekendDow, "name", v));
+        labelField.textColor = "var(--color-text)";
+        locField = this.makeEditableField(`weekend-loc-${day.weekendDow}`, wa.loc, v => this.commitWeekendField(day.weekendDow, "loc", v));
+        locField.textColor = "var(--color-text)";
+      }
+      const dayBadges = this.computeDayBadges(day);
+      const lunchRefreshList = day.lunchType === "dosirak" ? s.confirmedMenus.dosirak : day.lunchType === "home" ? s.confirmedMenus.lunch : null;
+      const meals = mealsFor(day, s.mealOverrides).map(meal => {
+        const refreshList = meal.fieldKey === "breakfast" ? s.confirmedMenus.breakfast : meal.fieldKey === "dinner" ? s.confirmedMenus.dinner : meal.fieldKey === "lunch" ? lunchRefreshList : null;
+        return {
+          label: meal.label,
+          isBreakfast: meal.fieldKey === "breakfast",
+          isLunch: meal.fieldKey === "lunch",
+          isDinner: meal.fieldKey === "dinner",
+          canToggleLunch: meal.fieldKey === "lunch" && day.canToggleLunch,
+          onCycleLunch: () => this.cycleLunchOverride(day.key, s.lunchOverride[day.key]),
+          canRefresh: !!(refreshList && refreshList.length),
+          onRefresh: () => this.randomizeMeal(day.key, meal.fieldKey, refreshList, meal.text),
+          refreshStyle: refreshBtnStyle,
+          ...lunchToggleView(s.lunchOverride[day.key]),
+          ...this.makeEditableField(`meal-${day.key}-${meal.fieldKey}`, meal.text, v => this.commitMealOverride(day.key, meal.fieldKey, v)),
+        };
+      });
+      const isToday = day.key === getTodayKey();
+      const noteField = this.makeEditableField(`note-${day.key}`, s.dayNotes[day.key] || "", v => this.commitDayNote(day.key, v));
+      const isHolidayNow = !!s.dayHolidayOverride[day.key];
+      const activities = this.buildDayActivities(day.key).map(act => isHolidayNow ? { ...act, nameDisplayStyle: { ...act.nameDisplayStyle, opacity: 0.28, pointerEvents: "none" } } : act);
+      const dayStatusOptions = ["워터플레이", "수영", "피자데이"].map(label => ({
+        label,
+        isCustom: label === "기타",
+        isFixed: label !== "기타",
+        onClick: label === "기타"
+          ? () => this.onCustomStatus(day.key)
+          : () => this.toggleDayStatus(day.key, label),
+      }));
+      const isEditingCustomStatusDay = s.editingKey === `special-${day.key}` && s.pendingCustomKey === day.key;
+      const weekendColor = "#F2600A";
+      const todayBg = day.isWeekend ? "color-mix(in srgb, #F2600A 20%, var(--color-surface))" : "color-mix(in srgb, var(--color-accent) 15%, var(--color-surface))";
+      return {
+        key: day.key,
+        dow: day.label,
+        dateLabel: `${day.date.getMonth() + 1}/${day.date.getDate()}`,
+        isToday,
+        hasCamp: isCamp,
+        hasActivities: activities.length > 0,
+        noActivities: activities.length === 0,
+        cardStyle: { background: isToday ? todayBg : "var(--color-surface)", position: "relative" },
+        dowColor: isHolidayNow ? "#ff2b2b" : (day.isWeekend ? weekendColor : "var(--color-accent)"),
+        dateColor: isHolidayNow ? "rgba(32,30,29,0.32)" : "var(--color-text)",
+        noteBtnColor: day.isWeekend ? weekendColor : "var(--color-accent)",
+        labelField, locField,
+        labelNameOpacity: isHolidayNow ? 0.28 : 1,
+        labelPointerEvents: isHolidayNow ? "none" : "auto",
+        statusPillOpacity: isHolidayNow ? 0.28 : 0.65,
+        dimStyle: isHolidayNow ? { opacity: 0.28, filter: "grayscale(1)", pointerEvents: "none" } : {},
+        holidayBtnStyle: s.dayHolidayOverride[day.key]
+          ? { position: "absolute", top: 0, right: 0, background: "none", border: "1px solid #ff2b2b", color: "#ff2b2b", borderRadius: "999px", padding: "3px 10px", fontSize: "11.5px", fontWeight: 700, cursor: "pointer" }
+          : { position: "absolute", top: 0, right: 0, background: "none", border: "1px solid var(--color-neutral-400)", color: "var(--color-neutral-500)", borderRadius: "999px", padding: "3px 10px", fontSize: "11.5px", fontWeight: 700, cursor: "pointer" },
+        onToggleHoliday: () => this.toggleHoliday(day.key),
+        showCampLabel: !NO_CAMP_INFO_DAYS[day.key],
+        showLoc: !NO_CAMP_INFO_DAYS[day.key],
+        badges: dayBadges,
+        meals,
+        noteField,
+        hasNote: !!(s.dayNotes[day.key] && s.dayNotes[day.key].trim()),
+        activities,
+        openActivityAdd: () => this.openActivityAdd(day.key),
+        statusOptions: dayStatusOptions,
+        isEditingCustomStatusDay,
+        isNotEditingCustomStatusDay: !isEditingCustomStatusDay,
+      };
+    });
+
+    const { y, m } = monthDefs[s.monthIdx];
+    const monthLabel = `${y}년 ${m}월`;
+    const first = new Date(y, m - 1, 1);
+    const lead = (first.getDay() + 6) % 7;
+    const daysInMonth = new Date(y, m, 0).getDate();
+    const flatSlots = [];
+    for (let i = 0; i < lead; i++) flatSlots.push(null);
+    for (let d = 1; d <= daysInMonth; d++) {
+      const key = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+      flatSlots.push({ d, key, day: dayMap[key] });
+    }
+    while (flatSlots.length % 7 !== 0) flatSlots.push(null);
+
+    const todayKey = (() => { const t = new Date(); t.setHours(0, 0, 0, 0); return t.toISOString().slice(0, 10); })();
+
+    const monthRows = [];
+    for (let r = 0; r < flatSlots.length; r += 7) {
+      const rowIndex = r / 7;
+      const rowSlots = flatSlots.slice(r, r + 7);
+      const weekdaySlots = rowSlots.slice(0, 5);
+      const weekendSlots = rowSlots.slice(5, 7);
+
+      let campBar = null;
+      const campIdxs = weekdaySlots.map((slot, i) => (slot && slot.day && slot.day.hasCamp) ? i : -1).filter(i => i >= 0);
+      let campBarIdxs = campIdxs;
+      if (!campBarIdxs.length) {
+        // no weekday of this camp week falls in this month (e.g. week split across a month boundary) —
+        // fall back to whatever real days (weekend included) DO appear in this row so the camp name still shows.
+        campBarIdxs = rowSlots.map((slot, i) => (slot && slot.day) ? i : -1).filter(i => i >= 0);
+      }
+      if (campBarIdxs.length) {
+        const start = Math.min(...campBarIdxs), end = Math.max(...campBarIdxs);
+        const campWeekIdx = rowSlots[start].day.weekIdx;
+        const campIsToday = rowSlots.some(sl => sl && sl.day && sl.day.hasCamp && sl.key === todayKey);
+        campBar = {
+          label: this.campFor(campWeekIdx).name,
+          onClick: () => this.setState({ monthSelectedCampIdx: campWeekIdx, selectedKey: null }),
+          style: { gridColumn: `1 / ${end + 2}`, fontSize: "11px", fontWeight: 800, color: campIsToday ? "var(--color-accent)" : "var(--color-text)", padding: "3px 8px", margin: 0, overflow: "visible", whiteSpace: "nowrap", display: "flex", alignItems: "center", justifyContent: "flex-start", textAlign: "left", background: "none", cursor: "pointer", border: "none", fontFamily: "var(--font-body)", width: "100%", position: "relative", zIndex: 1 },
+        };
+      }
+      const weekendBars = [];
+
+      const cells = rowSlots.map(slot => {
+        if (!slot) return { hasLabel: false, hasDot: false, showCampDot: false, disabled: true, onClick: () => {}, style: { aspectRatio: "1/1", border: "none", background: "none", visibility: "hidden" } };
+        if (!slot.day) {
+          return {
+            hasLabel: true, label: slot.d, hasDot: false, dotColor: "transparent", dotVisibility: "hidden", showCampDot: false, disabled: true, onClick: () => {},
+            style: { aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center", border: "none", background: "none", opacity: 0.25, fontSize: "13px", fontWeight: 500 },
+          };
+        }
+        const selected = slot.key === s.selectedKey;
+        const isToday = slot.key === todayKey;
+        const hasActivity = !!(s.dayActivities[slot.key] && s.dayActivities[slot.key].length);
+        const showDot = slot.day.hasCamp ? (this.dayHasBadge(slot.day) || hasActivity) : true;
+        const dotColor = slot.day.hasCamp ? "var(--color-accent)" : "#F2600A";
+        const cellIsHoliday = !!s.dayHolidayOverride[slot.key];
+        return {
+          hasLabel: true, label: slot.d, hasDot: showDot, dotColor, dotVisibility: showDot ? "visible" : "hidden", disabled: false,
+          showCampDot: false,
+          onClick: () => this.setState({ selectedKey: slot.key, monthSelectedCampIdx: null }),
+          style: {
+            aspectRatio: "1/1", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+            border: "none",
+            background: selected ? "color-mix(in srgb, var(--color-accent) 32%, white)" : (isToday ? "color-mix(in srgb, var(--color-accent) 10%, white)" : "none"),
+            cursor: "pointer", fontSize: "13px",
+            fontWeight: selected ? 800 : (isToday ? 700 : 500),
+            color: cellIsHoliday ? "#ff2b2b" : (selected ? (slot.day.isWeekend ? "var(--color-text)" : "var(--color-accent)") : "var(--color-text)"),
+            borderRadius: 0, padding: 0,
+          },
+        };
+      });
+
+      monthRows.push({
+        hasCampBar: !!campBar, campBar, weekendBars, cells,
+        wrapperStyle: { borderTop: rowIndex === 0 ? "none" : "1px solid var(--color-divider)", paddingTop: rowIndex === 0 ? "0" : "8px", marginTop: rowIndex === 0 ? "0" : "2px" },
+      });
+    }
+
+    let detailVals = { hasSelectedDay: false, noSelectedDay: true };
+    const selDay = s.selectedKey ? dayMap[s.selectedKey] : null;
+    if (selDay) {
+      const detailLunchRefreshList = selDay.lunchType === "dosirak" ? s.confirmedMenus.dosirak : selDay.lunchType === "home" ? s.confirmedMenus.lunch : null;
+      const detailMeals = mealsFor(selDay, s.mealOverrides).map(meal => {
+        const refreshList = meal.fieldKey === "breakfast" ? s.confirmedMenus.breakfast : meal.fieldKey === "dinner" ? s.confirmedMenus.dinner : meal.fieldKey === "lunch" ? detailLunchRefreshList : null;
+        return {
+          label: meal.label,
+          isBreakfast: meal.fieldKey === "breakfast",
+          isLunch: meal.fieldKey === "lunch",
+          isDinner: meal.fieldKey === "dinner",
+          canToggleLunch: meal.fieldKey === "lunch" && selDay.canToggleLunch,
+          onCycleLunch: () => this.cycleLunchOverride(selDay.key, s.lunchOverride[selDay.key]),
+          canRefresh: !!(refreshList && refreshList.length),
+          onRefresh: () => this.randomizeMeal(selDay.key, meal.fieldKey, refreshList, meal.text),
+          refreshStyle: refreshBtnStyle,
+          ...lunchToggleView(s.lunchOverride[selDay.key]),
+          ...this.makeEditableField(`meal-${selDay.key}-${meal.fieldKey}`, meal.text, v => this.commitMealOverride(selDay.key, meal.fieldKey, v)),
+        };
+      });
+      const detailIsHolidayNow = !!s.dayHolidayOverride[selDay.key];
+      let detailLabelField = null, detailLocField = null;
+      let detailCampNameField = null, detailCampLocField = null, detailCampItemsField = null;
+      if (!selDay.hasCamp) {
+        const wa = s.weekendActivity[selDay.weekendDow];
+        detailLabelField = this.makeEditableField(`weekend-name-${selDay.weekendDow}`, wa.name, v => this.commitWeekendField(selDay.weekendDow, "name", v));
+        detailLocField = this.makeEditableField(`weekend-loc-${selDay.weekendDow}`, wa.loc, v => this.commitWeekendField(selDay.weekendDow, "loc", v));
+      } else {
+        const dCamp = this.campFor(selDay.weekIdx);
+        detailCampNameField = { ...this.makeEditableField(`month-detail-name-${selDay.weekIdx}`, dCamp.name, v => this.updateCampField(selDay.weekIdx, "name", v)), isPlaceholder: isPlaceholderVal(dCamp.name, PLACEHOLDER_CAMP.name) };
+        detailCampNameField.textStyle = { fontSize: "calc(16px * var(--dash-scale))", fontWeight: 800, cursor: "text", color: detailCampNameField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-text)", opacity: detailIsHolidayNow ? 0.28 : 1, pointerEvents: detailIsHolidayNow ? "none" : "auto" };
+        detailCampLocField = { ...this.makeEditableField(`month-detail-loc-${selDay.weekIdx}`, dCamp.loc, v => this.updateCampField(selDay.weekIdx, "loc", v)), isPlaceholder: isPlaceholderVal(dCamp.loc, PLACEHOLDER_CAMP.loc) };
+        detailCampLocField.textStyle = { fontSize: "13px", cursor: "text", marginTop: "2px", lineHeight: "1.1", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block", color: detailCampLocField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-text)", opacity: detailCampLocField.isPlaceholder ? 1 : 0.6 };
+        detailCampLocField.displayText = detailCampLocField.isPlaceholder ? dCamp.loc : `장소 · ${dCamp.loc}`;
+        detailCampLocField.hasPrefix = !detailCampLocField.isPlaceholder;
+        detailCampItemsField = { ...this.makeEditableField(`month-detail-items-${selDay.weekIdx}`, dCamp.items, v => this.updateCampField(selDay.weekIdx, "items", v)), isPlaceholder: isPlaceholderVal(dCamp.items, PLACEHOLDER_CAMP.items) };
+        detailCampItemsField.textStyle = { fontSize: "13px", cursor: "text", marginTop: "3.7px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block", color: detailCampItemsField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-text)", opacity: detailCampItemsField.isPlaceholder ? 1 : 0.6 };
+        detailCampItemsField.displayText = detailCampItemsField.isPlaceholder ? dCamp.items : `준비물 · ${dCamp.items}`;
+        detailCampItemsField.hasPrefix = !detailCampItemsField.isPlaceholder;
+      }
+      const detailLabelNameStyle = { fontSize: "calc(16px * var(--dash-scale))", fontWeight: 800, cursor: "text", opacity: detailIsHolidayNow ? 0.28 : 1, pointerEvents: detailIsHolidayNow ? "none" : "auto" };
+      const detailBadges = this.computeDayBadges(selDay);
+      const detailNoteField = this.makeEditableField(`note-${selDay.key}`, s.dayNotes[selDay.key] || "", v => this.commitDayNote(selDay.key, v));
+      const detailHasNote = !!(s.dayNotes[selDay.key] && s.dayNotes[selDay.key].trim());
+      const isEditingCustomStatus = s.editingKey === `special-${selDay.key}` && s.pendingCustomKey === selDay.key;
+      const statusOptions = ["워터플레이", "수영", "피자데이"].map(label => ({
+        label,
+        isCustom: label === "기타",
+        isFixed: label !== "기타",
+        onClick: label === "기타"
+          ? () => this.onCustomStatus(selDay.key)
+          : () => this.toggleDayStatus(selDay.key, label),
+      }));
+      const detailActivities = this.buildDayActivities(selDay.key).map(act => detailIsHolidayNow ? { ...act, nameDisplayStyle: { ...act.nameDisplayStyle, opacity: 0.28, pointerEvents: "none" } } : act);
+      const openActivityAddFn = () => this.openActivityAdd(selDay.key);
+      detailVals = {
+        hasSelectedDay: true,
+        noSelectedDay: false,
+        detailDow: selDay.label,
+        detailDowColor: detailIsHolidayNow ? "#ff2b2b" : (selDay.isWeekend ? "#F2600A" : "var(--color-accent)"),
+        detailDateColor: detailIsHolidayNow ? "rgba(32,30,29,0.32)" : "var(--color-text)",
+        detailDateLabel: `${selDay.date.getMonth() + 1}/${selDay.date.getDate()}`,
+        detailIsCamp: selDay.hasCamp,
+        detailIsWeekend: !selDay.hasCamp,
+        detailShowCampInfo: !NO_CAMP_INFO_DAYS[selDay.key],
+        detailWeekNum: selDay.weekIdx + 1,
+        detailLabelField, detailLocField, detailLabelNameStyle,
+        detailCampNameField, detailCampLocField, detailCampItemsField,
+        detailBadges,
+        detailMeals,
+        detailNoteField,
+        detailNoteBtnColor: !selDay.hasCamp ? "#F2600A" : "var(--color-accent)",
+        detailHasNote,
+        statusOptions,
+        isEditingCustomStatus,
+        isNotEditingCustomStatus: !isEditingCustomStatus,
+        detailActivities,
+        detailHasActivities: detailActivities.length > 0,
+        detailNoActivities: detailActivities.length === 0,
+        detailLabelNameOpacity: detailIsHolidayNow ? 0.28 : 1,
+        detailLabelPointerEvents: detailIsHolidayNow ? "none" : "auto",
+        openActivityAdd: openActivityAddFn,
+        detailIsHoliday: !!s.dayHolidayOverride[selDay.key],
+        detailHolidayBtnStyle: s.dayHolidayOverride[selDay.key]
+          ? { position: "absolute", top: 0, right: 0, background: "none", border: "1px solid #ff2b2b", color: "#ff2b2b", borderRadius: "999px", padding: "3px 10px", fontSize: "11.5px", fontWeight: 700, cursor: "pointer" }
+          : { position: "absolute", top: 0, right: 0, background: "none", border: "1px solid var(--color-neutral-400)", color: "var(--color-neutral-500)", borderRadius: "999px", padding: "3px 10px", fontSize: "11.5px", fontWeight: 700, cursor: "pointer" },
+        onToggleHoliday: () => this.toggleHoliday(selDay.key),
+        detailDimStyle: s.dayHolidayOverride[selDay.key] ? { opacity: 0.4, filter: "grayscale(1)", pointerEvents: "none" } : {},
+      };
+    }
+
+    const groceryItems = (s.groceryData[s.store] || []).map((item, idx) => {
+      const checked = s.groceryChecked[s.store].includes(item);
+      const store = s.store;
+      return {
+        item, checked,
+        onToggle: () => this.toggleGroceryChecked(s.store, item),
+        onDelete: () => this.setState(st => ({
+          groceryData: { ...st.groceryData, [s.store]: st.groceryData[s.store].filter(x => x !== item) },
+          groceryChecked: { ...st.groceryChecked, [s.store]: st.groceryChecked[s.store].filter(x => x !== item) },
+        })),
+        labelStyle: { flex: 1, fontSize: "13.5px", fontWeight: 500, lineHeight: "20px", color: checked ? "var(--color-neutral-600)" : "var(--color-text)", textDecoration: checked ? "line-through" : "none", cursor: "text", lineHeight: "20px", boxSizing: "border-box" },
+        nameField: this.makeEditableField(`grocery-${store}-${idx}`, item, v => this.renameGroceryItem(store, idx, item, v)),
+      };
+    });
+
+    const viewModeActiveStyle = { display: "flex", alignItems: "center", gap: "6px", padding: "0 0 10px", background: "none", border: "none", color: "var(--color-accent)", fontWeight: 800, fontSize: "13.5px", cursor: "pointer" };
+    const viewModeInactiveStyle = { display: "flex", alignItems: "center", gap: "6px", padding: "0 0 10px", background: "none", border: "none", color: "var(--color-text)", opacity: 0.5, fontWeight: 500, fontSize: "13.5px", cursor: "pointer" };
+    const weekMonthActiveStyle = { ...viewModeActiveStyle, fontSize: "15px" };
+    const weekMonthInactiveStyle = { ...viewModeInactiveStyle, fontSize: "15px" };
+
+    let monthCampVals = { hasMonthSelectedCamp: false };
+    if (s.monthSelectedCampIdx != null && s.weeksData) {
+      const mIdx = s.monthSelectedCampIdx;
+      const mCamp = this.campFor(mIdx);
+      const mNameField = { ...this.makeEditableField(`month-cal-name-${mIdx}`, mCamp.name, v => this.updateCampField(mIdx, "name", v)), isPlaceholder: isPlaceholderVal(mCamp.name, PLACEHOLDER_CAMP.name) };
+      mNameField.textStyle = { fontSize: "calc(21.6px * var(--dash-scale))", fontWeight: 800, cursor: "text", marginTop: "-0.7px", marginBottom: "6px", color: mNameField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-accent)" };
+      const mLocField = { ...this.makeEditableField(`month-cal-loc-${mIdx}`, mCamp.loc, v => this.updateCampField(mIdx, "loc", v)), isPlaceholder: isPlaceholderVal(mCamp.loc, PLACEHOLDER_CAMP.loc) };
+      mLocField.displayText = mLocField.isPlaceholder ? mCamp.loc : `장소 · ${mCamp.loc}`;
+      mLocField.hasPrefix = !mLocField.isPlaceholder;
+      mLocField.textStyle = { fontSize: "13px", fontWeight: 400, cursor: "text", marginTop: "-4px", lineHeight: "1.1", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block", color: mLocField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-text)", opacity: mLocField.isPlaceholder ? 1 : 0.6 };
+      const mItemsField = { ...this.makeEditableField(`month-cal-items-${mIdx}`, mCamp.items, v => this.updateCampField(mIdx, "items", v)), isPlaceholder: isPlaceholderVal(mCamp.items, PLACEHOLDER_CAMP.items) };
+      mItemsField.displayText = mItemsField.isPlaceholder ? mCamp.items : `준비물 · ${mCamp.items}`;
+      mItemsField.hasPrefix = !mItemsField.isPlaceholder;
+      mItemsField.textStyle = { fontSize: "13px", fontWeight: 400, cursor: "text", marginTop: "-4px", lineHeight: "1.1", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", display: "block", color: mItemsField.isPlaceholder ? "var(--color-neutral-400)" : "var(--color-text)", opacity: mItemsField.isPlaceholder ? 1 : 0.6 };
+      const mDropOffField = { ...this.makeEditableField(`month-cal-dropOff-${mIdx}`, mCamp.dropOff || "", v => this.updateCampField(mIdx, "dropOff", v)), displayValue: mCamp.dropOff || "HH:MM" };
+      const mPickUpField = { ...this.makeEditableField(`month-cal-pickUp-${mIdx}`, mCamp.pickUp || "", v => this.updateCampField(mIdx, "pickUp", v)), displayValue: mCamp.pickUp || "HH:MM" };
+      monthCampVals = {
+        hasMonthSelectedCamp: true,
+        monthCampNameField: mNameField, monthCampLocField: mLocField, monthCampItemsField: mItemsField,
+        monthCampDropOffField: mDropOffField, monthCampPickUpField: mPickUpField,
+      };
+    }
+
+    const menuCategoryDefs = [
+      { key: "breakfast", title: "아침" },
+      { key: "lunch", title: "점심 (주말·집밥)" },
+      { key: "dosirak", title: "도시락 (평일)" },
+      { key: "dinner", title: "저녁" },
+    ];
+    const menuCategories = menuCategoryDefs.map(def => ({
+      title: def.title,
+      items: s.confirmedMenus[def.key].map((item, idx) => {
+        const q = (s.confirmedMenuInputs[def.key] || "").trim().toLowerCase();
+        const isMatch = !!q && item.text.toLowerCase().includes(q);
+        return {
+          hasLink: !!item.link,
+          noLink: !item.link,
+          link: item.link,
+          rowStyle: { display: "flex", alignItems: "center", gap: "8px", padding: "6px 2px", borderBottom: "0.5px solid var(--color-divider)", flexWrap: "wrap", background: isMatch ? "color-mix(in srgb, var(--color-accent) 15%, transparent)" : "none", borderRadius: isMatch ? "4px" : "0" },
+          linkField: this.makeEditableField(`menu-link-${def.key}-${idx}`, item.link || "", v => this.updateMenuItemLink(def.key, idx, v)),
+          onDelete: () => this.deleteMenuItem(def.key, idx),
+          ...this.makeEditableField(`menu-${def.key}-${idx}`, item.text, v => this.updateMenuItem(def.key, idx, v)),
+        };
+      }),
+      inputValue: s.confirmedMenuInputs[def.key],
+      onInputChange: e => this.setState(st => ({ confirmedMenuInputs: { ...st.confirmedMenuInputs, [def.key]: e.target.value } })),
+      linkValue: s.confirmedMenuLinkInputs[def.key],
+      onLinkChange: e => this.setState(st => ({ confirmedMenuLinkInputs: { ...st.confirmedMenuLinkInputs, [def.key]: e.target.value } })),
+      onInputKeyDown: e => { if (e.key === "Enter") this.addMenuItem(def.key); },
+      onAdd: () => this.addMenuItem(def.key),
+    }));
+
+    return {
+      frameStyle,
+      titleField, dateRangeField,
+      syncStatusText: { idle: "", loading: "동기화 불러오는 중…", saving: "저장 중…", synced: this.state.syncCopied ? "링크 복사됨!" : "동기화됨", error: "동기화 실패 (기기에는 저장됨)" }[s.syncStatus] || "",
+      isSyncError: s.syncStatus === "error",
+      onRetrySync: () => this.retrySync(),
+      syncId: s.syncId || "",
+      onCopySyncLink: () => this.copySyncLink(),
+      showSyncCodeEntry: s.showSyncCodeEntry,
+      onToggleSyncEntry: () => this.setState({ showSyncCodeEntry: !s.showSyncCodeEntry }),
+      syncCodeInput: s.syncCodeInput,
+      onSyncCodeInputChange: e => this.setState({ syncCodeInput: e.target.value }),
+      onLoadOtherSyncCode: () => this.loadOtherSyncCode(),
+      campDropOffField, campPickUpField,
+      indicatorIsBar, indicatorIsDot,
+      viewModeWeekStyle: s.viewMode === "week" ? weekMonthActiveStyle : weekMonthInactiveStyle,
+      viewModeMonthStyle: s.viewMode === "month" ? weekMonthActiveStyle : weekMonthInactiveStyle,
+      storeKoreanStyle: s.store === "korean" ? viewModeActiveStyle : viewModeInactiveStyle,
+      storeLocalStyle: s.store === "local" ? viewModeActiveStyle : viewModeInactiveStyle,
+      storeMenuStyle: s.store === "menu" ? viewModeActiveStyle : viewModeInactiveStyle,
+      isMenuView: s.store === "menu",
+      selectMenu: () => this.setState({ store: "menu" }),
+      menuCategories,
+      isScheduleTab: s.tab === "schedule",
+      isGroceryTab: s.tab === "grocery",
+      selectScheduleTab: () => this.setState({ tab: "schedule" }),
+      selectGroceryTab: () => this.setState({ tab: "grocery" }),
+      scheduleTabStyle: s.tab === "schedule" ? tabActiveStyle : tabInactiveStyle,
+      groceryTabStyle: s.tab === "grocery" ? tabActiveStyle : tabInactiveStyle,
+
+      isWeekMode: s.viewMode === "week",
+      isMonthMode: s.viewMode === "month",
+      selectWeekMode: () => {
+        const todayIdx = getDefaultWeekIdx(computeWeekStarts(s.seasonStart, s.seasonTotalDays), weekLensForTotalDays(s.seasonTotalDays));
+        this.setState({ viewMode: "week", weekIdx: todayIdx }, () => {
+          this.centerWeekTabRobust(todayIdx);
+          this.centerTodayCardRobust();
+        });
+      },
+      selectMonthMode: () => {
+        const todayIdxM = getDefaultMonthIdx(monthDefs);
+        this.setState({ viewMode: "month", monthIdx: todayIdxM, selectedKey: getTodayKey() });
+      },
+
+      weekTabs,
+      campNameField, campLocField, campItemsField,
+      days,
+      ...monthCampVals,
+
+      monthLabel,
+      prevMonth: () => this.setState({ monthIdx: Math.max(0, s.monthIdx - 1), selectedKey: null }),
+      nextMonth: () => this.setState({ monthIdx: Math.min(monthDefs.length - 1, s.monthIdx + 1), selectedKey: null }),
+      prevMonthDisabled: s.monthIdx === 0,
+      nextMonthDisabled: s.monthIdx === monthDefs.length - 1,
+      weekdayHeads: ["M", "T", "W", "T", "F", "S", "S"],
+      monthRows,
+      ...detailVals,
+
+      isKoreanStore: s.store === "korean",
+      isLocalStore: s.store === "local",
+      selectKorean: () => this.setState({ store: "korean" }),
+      selectLocal: () => this.setState({ store: "local" }),
+      groceryInput: s.groceryInput,
+      onGroceryInputChange: e => this.setState({ groceryInput: e.target.value }),
+      onGroceryKeyDown: e => { if (e.key === "Enter") this.addGroceryItemImpl(); },
+      addGroceryItem: () => this.addGroceryItemImpl(),
+      clearChecked: () => this.setState(st => ({
+        groceryData: { ...st.groceryData, [s.store]: st.groceryData[s.store].filter(x => !st.groceryChecked[s.store].includes(x)) },
+        groceryChecked: { ...st.groceryChecked, [s.store]: [] },
+      })),
+      groceryItems,
+    };
+  }
+}
+</script>
+</body>
+</html>
