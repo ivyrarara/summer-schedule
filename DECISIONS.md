@@ -1,0 +1,158 @@
+# Decision Log
+
+Why things were built the way they were — not just what changed. New entries
+go at the top. Each commit that makes a non-obvious call should get an entry
+here, in addition to explaining itself in the commit message.
+
+Context: `index.html` is a single-file bundle. The actual app source (a
+custom `x-dc`/React template) lives inside a `<script type="__bundler/template">`
+tag as a JSON-encoded string — it's not directly readable/editable as plain
+HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
+
+---
+
+## Camp review box: no resize handle (PR #9)
+
+**Decision**: turned off `resize: vertical` (and the corner grip icon that
+comes with it) once the box was already auto-growing to fit its content.
+
+**Why**: manual resize and auto-grow both changing the same `height` fight
+each other — the grip invites a manual drag that the next keystroke would
+immediately overwrite anyway. With auto-grow in place, the grip was a
+leftover affordance with no real use, so it's gone rather than reconciled.
+
+## Camp review box: auto-grow to fit content (PR #8)
+
+**Decision**: box height now recalculates on every keystroke and on every
+`onStateSettled()` (which already fires after each state update, e.g.
+switching weeks), floor at the ~84px minimum, no cap.
+
+**Why / how**: this needed `element.style.height` to be set imperatively
+from JS after measuring `scrollHeight`. That only works if the *stylesheet*
+never declares `height` with `!important` for the element — a plain inline
+style (however it's set, including via JS) always loses to an `!important`
+stylesheet rule, no exceptions. The app's global `.input` rule forces
+`height: 1lh !important`. Once the review textarea's own class stopped
+declaring a fixed height (to let it grow), that global rule became the only
+declared `height` and silently overrode every JS resize. Fix: dropped the
+`input` class from the two review textareas entirely, so nothing else in the
+stylesheet has a say over `height`. The dedicated `.camp-review-input` class
+already re-declares every other visual property it needs, so nothing was
+lost by decoupling it from `.input`.
+
+## Camp review box: no border / no corner radius (PR #7), textarea instead of input (PR #6)
+
+**Decision**: switched the review field from `<input>` to `<textarea>`
+(so long reviews wrap instead of scrolling off-screen), then on follow-up
+feedback stripped the border and `border-radius` so it reads as part of the
+card rather than a separate boxed element.
+
+**Why this took two PRs to land at all**: `style="height: 84px !important"`
+written inline (via the template's `style="..."` string) does **not** work
+in this app. The React runtime sets inline styles through the DOM `style`
+*property* API (`el.style.height = value`), and that API silently drops any
+value containing the literal text `!important` — it's only meaningful when
+parsed from real CSS text (a stylesheet rule, or the raw HTML `style`
+attribute parsed by the browser's HTML parser, not JS). Since the app's
+global `.input { height: 1lh !important }` rule outranks a plain (non
+-important) inline override regardless of specificity, the only way to win
+was a real stylesheet rule (`.camp-review-input { height: ... !important }`
+in the `<style>` block) with higher specificity. This class of bug (inline
+`!important` silently doing nothing) came up twice in this session — see the
+entry below too.
+
+## Camp review input: separate feature, gated on "week has ended" (PR #5)
+
+**Decision**: a plain always-visible textarea at the bottom of the "THIS
+WEEK'S CAMP" card (weekly banner *and* month-view camp card, reading/writing
+the same `campReviews[weekIndex]` state so they stay in sync), shown only
+once a real camp is assigned *and* that week's last day is before today.
+
+**Why gated this way**: showing it unconditionally would surface an empty
+prompt for camps that haven't happened yet, which reads as premature. The
+condition intentionally mirrors "the week is actually over," not "today is
+the last day" or similar — a week is either fully in the past or it isn't.
+
+**Process note**: this one was mocked up locally (screenshots sent, three
+open questions asked — placement, whether month view should share the data,
+plain text vs. something richer) and held back from `main` until explicitly
+approved, per the user's request to review the design before it deploys
+(this repo is served live via GitHub Pages, so merging to `main` *is*
+deploying). Everything after this entry in the log went through the normal
+build → PR → merge flow without a pre-deploy mockup step, since it was
+either small/mechanical or directly requested.
+
+## Playdate: separate feature from Activity, own banner (no pill) (PR #3, follow-ups)
+
+**Decision**: reverted an earlier "add 누구랑 (who) to every Activity"
+change, and instead gave "플레이데이트" (playdate) its own 시간/장소/누구랑
+fields in a dedicated card, shown only when that status is toggled on for a
+day. Later removed the redundant pill badge that also appeared for that
+status, so the fields card is the only visual indicator (with its own ×
+to remove it).
+
+**Why the reversal**: Activity covers scheduled, structured things (swim
+class, basketball) — a "who" field doesn't make sense there. The original
+implementation was chosen from a menu of options the user picked, but once
+built and seen in context it was clearly wrong for the underlying concept.
+Kept as a lesson: when a feature choice is between "reuse an existing
+mechanism" vs. "model this as its own thing," prefer showing a concrete
+mockup before committing to the reuse path, since the tradeoff is often
+only obvious once rendered.
+
+## "일정 없음" (no schedule) made to actually work (PR #2)
+
+**Decision**: the "no schedule" placeholder text and its layout were driven
+by a hardcoded `NO_CAMP_INFO_DAYS = {}` constant that is *always* empty —
+so the flag was permanently `false` everywhere and the text could never
+render, in the original code as received. Replaced it with a dynamic check
+(no activities *and* no label/location text set) in both the weekly view
+and the day detail card, and gave the weekly view the same
+non-overlapping flex layout the detail card had already been fixed to use
+(PR #1) — because once the text could actually appear, the weekly view's
+old `position: absolute` button placement had the same overlap risk that
+had already been fixed in the detail card.
+
+**Why this was worth digging into rather than patching the symptom**: the
+original bug report ("생일" → corrected to "생긴," i.e. newly-appeared dates
+after extending the season range) only reproduces when a day has genuinely
+no schedule — which never happened before this fix, since the flag was
+dead. Fixing only the layout (PR #1) without this would have left the
+underlying feature non-functional; the overlap symptom and the "text never
+shows" bug were the same root cause wearing two hats.
+
+## Default view = weekly tab, today's date, on every launch (PR #1)
+
+**Decision**: `restoreLocalSnapshot()` and the remote-sync merge in
+`initSync()` now explicitly strip `tab`, `viewMode`, `weekIdx`, `monthIdx`,
+and `selectedKey` from whatever gets merged into state — everything else
+(camp data, notes, activities, etc.) still restores normally.
+
+**Why**: the state's own defaults already computed "today's week, schedule
+tab" correctly — `getDefaultWeekIdx()` etc. were right. The bug was that
+`restoreLocalSnapshot` unconditionally spread saved `localStorage` state
+(including whatever tab/week/month the user had last been looking at) over
+those defaults, silently overwriting them on every load. The fix targets
+exactly the fields that represent "where you are," leaving "what's in the
+schedule" alone.
+
+---
+
+## Working notes on this codebase's quirks (for future edits)
+
+- **`</` inside the embedded JSON string must stay escaped as `</`.**
+  The original bundle escapes every `</` this way so that literal
+  `</script>` sequences inside the JSON payload never prematurely close the
+  outer `<script type="__bundler/template">` tag. `JSON.stringify` doesn't
+  escape `/` by default — any edit that re-serializes the template must
+  re-apply `.replace('</', '<\\u002F')` afterward, or the page silently
+  breaks (the browser's HTML parser closes the script tag early).
+- **Inline `style="... !important"` does not work in this app.** See the
+  camp-review-box entries above. If a style needs to beat a global
+  `!important` rule (several exist, e.g. `.input`), it needs a real
+  stylesheet class with sufficient specificity, not an inline override.
+- **"Deploying" means merging to `main`.** This repo is served live via
+  GitHub Pages from `index.html` at the root — there's no separate deploy
+  step. Anything merged is immediately what the user's real, in-use app
+  shows. Non-trivial or ambiguous UI changes should be mocked up and
+  confirmed before merging, not just before "shipping" in some other sense.
