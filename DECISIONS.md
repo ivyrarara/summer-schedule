@@ -11,6 +11,39 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Week-of-month labels recomputed sequentially; PA데이 badge colored orange
+
+**Decision one — week labels**: replaced the per-week, independent
+"week-of-month" calculation (`ceil((date + firstWeekday)/7)`, applied only
+to a week's *start* date) with a sequential `computeWeekLabels()` that
+tracks a running (month, week number) across the whole season. A week that
+spans two months now goes to whichever month it has more than 4 days in —
+the later month if so, otherwise it continues the earlier month's count.
+Critically, this is computed as a running sequence, not a one-off override
+for a single flagged week: reclassifying one transition week into the next
+month correctly shifts every later week's number within that month too,
+instead of leaving a gap or a duplicate.
+
+**Why this surfaced now**: the user's actual live `seasonStart` (visible in
+a screenshot: "2026.06.28 – ...") is one day earlier than this repo's
+`SEASON_START_DEFAULT` ("2026-06-29") — their saved snapshot has carried
+that value since before this repo existed, and (per the "Default view"
+entry) a saved `seasonStart` always wins over the code default, so this was
+never going to show up by checking the code's own dates. With their real
+2026-06-28 start, the week spanning 2026-08-30–09-05 has 5 days in
+September and only 2 in August — under the old algorithm it was labeled by
+its start date ("8월 5주"); under the new rule, correctly "9월 1주". Verified
+by reproducing their exact `seasonStart` value and confirming that specific
+relabel, not just eyeballing the general rule.
+
+**Decision two — PA데이 badge color**: when a day's "PA데이" status badge is
+active, its pill uses orange (`#F2600A`, the same orange the "+ 활동"/"+ 메모"
+buttons use) instead of the app's theme-accent color every other status
+badge uses. Added `pillColor`/`pillBg` per badge in `computeDayBadges()`
+(defaulting to the existing accent color for every other label) rather than
+hardcoding the color in the markup, so only PA데이 changed and nothing else
+did.
+
 ## Weekday status options swap for the school year (워터플레이/수영/필드트립 → PA데이)
 
 **Decision**: from 2026-09-07 onward (the same date camp season already
