@@ -11,6 +11,89 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## 5-day cycle shown as "WED(3)" inline instead of a small number above the day; added a "생일파티" (birthday party) weekend button
+
+**Cycle number moved inline**: the initial version placed the cycle number
+in its own small (7px) text absolutely positioned above the day-of-week
+label. The user asked for a simpler, less visually separate treatment
+instead: append it in parentheses directly after the day-of-week text, in
+the exact same font/size/weight as the day-of-week itself — e.g. `WED(3)`.
+This also simplified the markup back down: no more `position:relative` /
+`position:absolute` wrapper, just the cycle number as a second inline
+text node (via `sc-if`) inside the same `<div>` as the day label, so it
+automatically inherits that div's styling instead of needing its own.
+
+**생일파티 (birthday party) added as a second weekend button**: same
+mechanism as 플레이데이트 — same toggle, same time/place/who detail card,
+same removable-pill behavior — just a second possible label. Rather than
+duplicate the playdate-specific card and fields, generalized the existing
+plumbing: `hasPlaydate`/`detailHasPlaydate` are now derived from whichever
+of `["플레이데이트", "생일파티"]` is active in `dayStatusOverride` (checked
+in that order), and the card's title text now reads that active label
+instead of being hardcoded to "플레이데이트". `computeDayBadges` skips
+both labels from the generic pill list (both get the special card
+instead). The two labels still share one `playdateDetails[dayKey]` details
+record (time/loc/who) rather than a fresh per-label store — acceptable
+since a given day realistically has at most one of these active at once,
+and keeping the existing state key avoids any migration for the playdate
+details users have already entered.
+
+## 5-day school cycle indicator, pizza day pill removed, PA Day/holiday location & time cleared, camp card hidden once camp season ends
+
+**5-day cycle (Day 1–5)**: the school runs classes on a 5-day rotating
+cycle (not tied to the calendar weekday), and the user wanted that number
+shown small, centered, directly above the day-of-week label on every daily
+card (weekly view and the month view's day-detail card). `WebFetch` to
+`www2.yrdsb.ca` is blocked in this environment, so the user sent 6
+screenshots of the official "YRDSB Elementary 5 Day Cycle" Google Calendar
+(Sep 2026 – Mar 2027) as the source. All 114 date→day entries were
+transcribed from those screenshots into a `CYCLE_DAY_DATES` map and
+verified with a mod-5 continuity check (skip weekends/holidays/PA days,
+otherwise increment 1→2→3→4→5→1… with no reset, including across Winter
+Break) — the check passed cleanly across every entry, so the transcription
+was trusted as-is rather than re-derived from a computed rule (a computed
+rule would in fact have been wrong: Sep 1 and Sep 4, 2026 carry no cycle
+day despite not being holidays, an undocumented pre-cycle-start exception
+only visible in the real calendar).
+
+Implementation-wise, the number is positioned with `position:absolute;
+bottom:100%` inside the (now `position:relative`) day-of-week `<div>`,
+rather than restructuring the row into a flex column. That keeps the
+existing `align-items:baseline` row layout (and its alignment with the
+date number next to it) completely untouched — an absolutely-positioned
+child is taken out of flow, so it can't shift the baseline the browser
+computes for the row.
+
+**피자데이 pill removed for the fall/school-year period**: `weekdayStatusLabels`'s
+fall branch now returns `[]` instead of `["피자데이"]` — there are no more
+manually-toggled weekday statuses once school starts (PA Day/holidays are
+now purely calendar-driven via `ORANGE_LABEL_DATES`, not a toggle).
+
+**PA Day / holiday dates no longer show a location or activity time**: the
+user pointed out a real visible bug — a holiday like PA Day was still
+showing a stale location string (e.g. "OO 커뮤니티체육관") underneath the
+orange label, left over from the day being treated as a normal camp/weekday
+slot. Fixed by blanking `locField`/`detailCampLocField` alongside the
+existing orange label-text override, and by suppressing `showMeta` (which
+drives the time+location row) in `buildDayActivities` for any activity that
+falls on an `ORANGE_LABEL_DATES` day. On a day off, there's no time or
+place to show.
+
+**"THIS WEEK'S CAMP" card now hides once a week has no camp**: previously
+this card (and, in month view, its per-week camp-name bar/button) rendered
+unconditionally for every week, camp or not — once the season passed into
+the no-camp school year (`camp: null` for every week from 2026-09-07
+onward), it kept showing as an empty placeholder card with editable
+"캠프 이름 / 장소" fields and blank Drop off/Pick up times, which is exactly
+what the user flagged as looking wrong. Gated on a new `hasCampThisWeek`
+(weekly view) / a truthiness check on `weeksData[weekIdx].camp` (month
+view's camp bar, which in turn gates whether its "open detail" card can
+ever be reached) — the card and bar simply don't render for camp-less
+weeks now. This only touches the weekly *summary* card; the per-day
+generic label/location field on individual day cards (used for ad-hoc
+notes even outside camp season) is unchanged, since that wasn't what was
+reported as broken.
+
 ## YRDSB school-board holidays added, orange, same mechanism as PA Day
 
 **Decision**: generalized `PA_DAY_DATES` (a list) into `ORANGE_LABEL_DATES`
