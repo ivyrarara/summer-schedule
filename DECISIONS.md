@@ -11,6 +11,41 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Season extended again, to 2027-02-25
+
+**Decision**: same mechanism as the 2026-12-31 extension — grew
+`WEEKS_DATA_DEFAULT` from 27 to 35 weeks, all new weeks `camp: null`. The previous last entry (2026-12-28, 4 days) became a full
+7-day week again, for the same reason as before: the real week-chunking is
+a pure function of total days from the season start, oblivious to this
+array's own `days` values, so a longer season always re-expands whatever
+was previously the trailing partial week. `patchMissingDefaults()` already
+handles delivering this to users with an already-saved (shorter) snapshot
+— verified again here by simulating a saved 27-week snapshot with
+`seasonTotalDays` already pointing at the new end date, and confirming
+reload grows `weeksData` to 35 with no camp on the new weeks.
+
+## GROCERIES tab replaced with MEAL PLAN only (store lists removed)
+
+**Decision**: renamed the "GROCERIES" tab button to "MEAL PLAN," removed the
+한인식품점/로컬마트/확정 식단 sub-nav entirely, and made the confirmed-menu
+content (아침/점심/도시락/저녁 categories) render unconditionally as the only
+thing in that tab — no more sub-tab to click through to reach it.
+
+**What was left alone on purpose**: the grocery-list state and methods
+(`groceryData`, `groceryChecked`, `GROCERY_DEFAULT`, `toggleGroceryChecked`,
+`addGroceryItemImpl`, `renameGroceryItem`) still exist but are now fully
+unreferenced by anything rendered. Removed the render-time view-model glue
+that only existed to wire up the deleted UI (`isKoreanStore`/`isLocalStore`/
+`isMenuView`, `selectKorean`/`selectLocal`/`selectMenu`, the three
+`storeXStyle` values, the grocery add-item input handlers, `clearChecked`,
+and the `groceryItems` list computation) since that was directly and
+unambiguously dead once the markup no longer used it. Didn't go further and
+strip the underlying state fields/methods/constant — that reaches deeper
+into the state shape (what a fresh install initializes, what a saved
+snapshot carries) for no behavioral difference, since inert unused state is
+harmless. If the store-list feature is confirmed gone for good, that's a
+reasonable follow-up cleanup, not a must-do-now one.
+
 ## Season extended to 2026-12-31, camp ends, fall recurring activities added
 
 **Decision**: extended `WEEKS_DATA_DEFAULT` from 10 weeks (ending
