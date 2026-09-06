@@ -11,6 +11,31 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## YRDSB school-board holidays added, orange, same mechanism as PA Day
+
+**Decision**: generalized `PA_DAY_DATES` (a list) into `ORANGE_LABEL_DATES`
+(a date → label map) and added the York Region District School Board's
+2026-2027 holidays: Labour Day (2026-09-07), Thanksgiving Day
+(2026-10-12), Winter Break (2026-12-21 through 2027-01-01, weekdays only),
+Family Day (2027-02-15), and Mid-Winter Break (2027-03-15 through
+2027-03-19). Same override, same position, same orange as PA Day — the
+label text just comes from the map instead of being hardcoded to "PA Day".
+
+**Sourcing**: Labour Day, Thanksgiving, Winter Break, and Family Day dates
+came from a screenshot of yrdsb.ca the user shared, but that screenshot was
+cropped before showing Mid-Winter Break's dates. Rather than guess, looked
+it up (web search, corroborated by two independent results) — Monday
+2027-03-15 through Friday 2027-03-19. Flagged to the user that this one
+date range is sourced differently (search, not their screenshot) so they
+can double-check it against their own reference.
+
+**Mid-Winter Break currently has no visible effect**: the season only runs
+through 2027-02-25 right now, before March. The dates are in the map
+regardless — if the season is extended into March later, this holiday
+shows up with no further changes needed, same as how `PA_DAY_DATES`/
+`ORANGE_LABEL_DATES` needs no `patchMissingDefaults()`-style migration
+(it's a code constant read at render time, not saved state).
+
 ## PA데이 reverted to a hardcoded date list, not a toggle
 
 **Decision**: undid the previous entry's PA데이 status-toggle/badge feature
