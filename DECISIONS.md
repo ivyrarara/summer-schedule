@@ -11,6 +11,42 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Stale-camp migration switched from date-string to index comparison — the previous fix didn't actually clear the user's live data
+
+**What happened**: right after merging the previous entry's fix, the user
+sent a live screenshot showing 9월 2주's camp card still present — not with
+old placeholder text, but with a real, non-null camp named "Back to
+School". The migration added in the previous round compared each week's
+stored `start` date string against `FALL_STATUS_CUTOFF` ("2026-09-07"), and
+that comparison silently failed for this user.
+
+**Root cause**: this app has a known, previously-diagnosed drift — this
+user's real, saved `seasonStart` is "2026-06-28", one day earlier than
+`WEEKS_DATA_DEFAULT`'s hardcoded "2026-06-29". Season weeks are chunked in
+7-day blocks from `seasonStart`, but each `weeksData[i].start` field is
+just whatever literal string was in `WEEKS_DATA_DEFAULT` at the time that
+entry was first appended by `patchMissingDefaults` — it was never
+recomputed from the user's actual `seasonStart`. So the *displayed* "9월
+2주" (whatever real calendar week that is for this user) doesn't
+necessarily carry a `start` field equal to `"2026-09-07"`, and the
+`>=` string comparison can miss it — which is exactly what happened.
+
+**Fix**: stopped trusting the `start` field for this decision entirely.
+`WEEKS_DATA_DEFAULT.findIndex(w => w.camp === null)` gives the *index* of
+the first no-camp week — a fact about the code's season definition, not
+about any particular saved date string — and the migration now force-nulls
+`camp` for every `weeksData` entry at or past that index, regardless of
+what its `start` field says. Array index alignment with
+`WEEKS_DATA_DEFAULT` is guaranteed by `patchMissingDefaults`'s own
+append-only extension logic (new entries are always appended at
+`weeksData.length`, preserving position), so comparing by index is robust
+to the season-start drift in a way date-string comparison never was.
+Verified by reproducing the exact failure: seeded a snapshot with
+`seasonStart: "2026-06-28"` and a real non-null "Back to School" camp
+at index 10 with a `start` of "2026-09-06" (not "2026-09-07") — the old
+date-string check would (and, per the live report, did) miss this; the
+new index-based check clears it on load.
+
 ## Camp placeholders ("캠프 이름"/"장소"/"준비물") fully hidden once a week has no camp — weekly cards, month-view detail card, and a stale-data migration
 
 **Root cause**: hiding the "THIS WEEK'S CAMP" *summary* card (previous entry
