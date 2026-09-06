@@ -11,6 +11,19 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Weekday status options swap for the school year (워터플레이/수영/필드트립 → PA데이)
+
+**Decision**: from 2026-09-07 onward (the same date camp season already
+ends — "9월 2주," see the season-extension entry below), a weekday's status
+options change from `["워터플레이", "수영", "피자데이", "필드트립"]` to
+`["피자데이", "PA데이"]`. 피자데이 stays either way since it still applies
+during the school year; the three summer-camp-specific labels are replaced
+by PA데이 (a school PA/professional-activity day). Implemented as one
+`weekdayStatusLabels(dateKey)` function shared by both the weekly view and
+the day detail card, keyed off the date string, rather than duplicating the
+cutoff logic — same reasoning as reusing `FALL_STATUS_CUTOFF` matching the
+existing camp-end date rather than inventing a new one.
+
 ## Season extended again, to 2027-02-25
 
 **Decision**: same mechanism as the 2026-12-31 extension — grew
