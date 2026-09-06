@@ -11,6 +11,57 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Camp placeholders ("캠프 이름"/"장소"/"준비물") fully hidden once a week has no camp — weekly cards, month-view detail card, and a stale-data migration
+
+**Root cause**: hiding the "THIS WEEK'S CAMP" *summary* card (previous entry
+below) wasn't the whole story. Every individual weekday day-card — both the
+weekly view's per-day label/location fields and the month view's day-detail
+card's name/location/supplies fields — independently call `campFor(weekIdx)`
+and show its result, falling back to `PLACEHOLDER_CAMP` ("캠프 이름" / "장소"
+/ "준비물") whenever a week's `camp` is `null`. Once school started and
+`camp: null` became the default for every week from 2026-09-07 on, every
+single weekday kept showing these three placeholder labels — the user
+caught it via a live screenshot of the month-view detail card for 10/20
+still showing "캠프 이름 / 장소 / 준비물" front and center, and separately
+asked to have "9월 2주" cleared entirely.
+
+**Fix**: added a `hasCampData` check (`weeksData[weekIdx].camp` truthy) at
+each of these render sites, reusing/repurposing the `showCampLabel`/
+`showLoc` flags in the weekly view (previously wired to a dead, always-true
+`NO_CAMP_INFO_DAYS` constant) and adding a matching `detailShowCampInfo`/
+`detailShowCampLoc` pair for the month-view detail card, including a new
+gate around the 준비물 (supplies) line that had no visibility gate at all
+before. PA Day/holiday dates are a deliberate exception for the *name*
+field only (still shows "PA Day" etc. in orange) but never for location or
+supplies — while fixing this, found and fixed the same leak for supplies:
+the earlier PA-Day-location fix only blanked `detailCampLocField`, not
+`detailCampItemsField`, so a day like 9/2 (PA Day, inside a week that still
+had a real camp before the cutoff) was still showing that camp's 준비물
+text under the orange "PA Day" label.
+
+**The stale-data problem this doesn't fix on its own**: this app persists
+`weeksData` fully client-side and `restoreLocalSnapshot`/`initSync` replace
+state with `{...prev, ...saved}` — so a week's `camp` value, once saved
+non-null in an older session, keeps overriding the code's `camp: null`
+default forever, regardless of what the current code says. This is why the
+9월 2주 camp card was still showing live even after the card was gated on
+`hasCampThisWeek`/`weeksData[idx].camp`: the *code's* default was already
+`null`, but the *user's own saved data* for that week predated this season's
+"no more camp after Sep 7" decision and still had a real camp object in it.
+Fixed by adding a step to `patchMissingDefaults()` (which already runs on
+every load, local and synced) that force-nulls `camp` for any saved week
+whose `start` is on/after `FALL_STATUS_CUTOFF`, regardless of what's
+currently stored there. This is a deliberate, narrow exception to the
+"never overwrite a user's existing entry" rule that governs the rest of
+`patchMissingDefaults` — justified because camp-after-school-starts isn't a
+user preference that could legitimately differ, it's a season fact the app
+already asserts via `WEEKS_DATA_DEFAULT`, and the user has already twice
+explicitly confirmed there is no camp once school starts. Verified against
+a simulated pre-existing snapshot with a leftover non-null camp on the
+2026-09-07 week: after one load, `patchMissingDefaults` nulls it out, the
+card and all three placeholder fields disappear, and the null persists
+back into `localStorage` so it doesn't need to re-run indefinitely.
+
 ## 5-day cycle shown as "WED(3)" inline instead of a small number above the day; added a "생일파티" (birthday party) weekend button
 
 **Cycle number moved inline**: the initial version placed the cycle number
