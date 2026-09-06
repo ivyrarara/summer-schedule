@@ -11,6 +11,36 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## PA데이 reverted to a hardcoded date list, not a toggle
+
+**Decision**: undid the previous entry's PA데이 status-toggle/badge feature
+entirely (removed it from `weekdayStatusLabels`, reverted the per-badge
+`pillColor`/`pillBg` mechanism back to the plain hardcoded accent color).
+Replaced it with a fixed `PA_DAY_DATES` list of five specific dates; on
+those dates, the weekday's camp-name-field display (the bold title at the
+top of the day card / day detail card — the same spot a real camp's name
+would show) is overridden to read "PA Day" in orange (`#F2600A`), rather
+than "캠프 이름" or whatever placeholder would otherwise show there.
+
+**Why override the label field instead of adding a new element**: these
+are individual specific dates, not a whole week, so the change can't go
+through `campFor()`/`WEEKS_DATA_DEFAULT` (that's a per-week assignment,
+shared by every weekday in the week). Building `labelField`/
+`detailCampNameField` already happens per individual day, so overriding
+`.value` (and `.textColor` / `.textStyle.color` for the weekly vs. detail
+card, respectively) right after they're built is the smallest change that
+reaches exactly the five named dates and no others. Left `locField`/
+`detailCampLocField` untouched — the user only asked about the "활동명"
+(activity name) position, and 5 of the dates fall inside what's still
+technically camp season, so leaving location alone is arguably correct too
+(their real camp still has a real location that week).
+
+**Why this needed no patch-forwarding**: unlike the season/`weeksData`
+changes earlier in this log, `PA_DAY_DATES` isn't part of saved state at
+all — it's a plain code constant consulted at render time — so it applies
+immediately to a live app with existing saved data, no
+`patchMissingDefaults()`-style migration needed.
+
 ## Week-of-month labels recomputed sequentially; PA데이 badge colored orange
 
 **Decision one — week labels**: replaced the per-week, independent
