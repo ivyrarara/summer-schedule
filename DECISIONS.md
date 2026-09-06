@@ -11,6 +11,52 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Season extended to 2026-12-31, camp ends, fall recurring activities added
+
+**Decision**: extended `WEEKS_DATA_DEFAULT` from 10 weeks (ending
+2026-09-04) to 27 weeks (ending 2026-12-31) — the last real camp
+("서머 스포츠 올림픽," week index 9) is unchanged, and every week from
+index 10 onward gets `camp: null` (school has started, no more camps).
+Added four new recurring activities for 2026-09-21 through 2026-12-20
+(inclusive of both boundary weeks): Skate Sun 11:10–12:10 and Wed
+4:00–5:00 at Maple, Swimmer 7 Sat 10:00–11:00 and Tue 4:30–5:30 at
+Carreville Community Center — seeded via the same
+weekday-template + explicit-date-list pattern the existing summer
+Sat/Sun/Mon activities already used.
+
+**Why there's no week literally labeled "9월 1주"**: the app labels each
+week by its *start date's* week-of-month, and week boundaries are fixed
+7-day blocks counted from the season start — they don't reset at month
+boundaries. The last camp week (starts 2026-08-31) already runs past
+September 1st before hitting the next boundary (2026-09-07, "9월 2주").
+So "camp ends starting 9월 1주" became "camp ends starting 9월 2주," which
+is the closest the underlying date math allows; flagged this back to the
+user rather than silently picking one interpretation.
+
+**The harder problem: this data lives in two places.** The code's
+`WEEKS_DATA_DEFAULT`/seed arrays are only the *fresh-install* default —
+the user's actual live app already has months of hand-entered data sitting
+in their browser's `localStorage`, and `restoreLocalSnapshot` completely
+replaces `weeksData`/`dayActivities` with whatever's saved there (a plain
+object spread, not a per-key merge — see the "Default view" entry below,
+which already established this same fact for the view-state fields).
+Just editing the code would have had **zero effect** on their real app:
+their shorter, older arrays would keep winning every load, forever.
+
+Added `patchMissingDefaults()`, called after both the local-restore and
+the remote-sync-restore paths settle. It's deliberately narrow: append
+weeks to `weeksData` only past the user's *current* array length (never
+touches an index they already have — including their own edits to the
+last camp), and add a `dayActivities` entry for a date only if that date
+has *no* entry at all yet. A deleted activity is `[]` in this app (see
+`deleteDayActivity`), which is truthy — so patching only fires for dates
+that were never seeded, never for ones the user intentionally emptied.
+Verified by simulating an old, pre-extension saved snapshot (10-week
+array, a hand-edited camp name, a deleted activity, a camp review) and
+confirming a reload adds the new weeks/activities while leaving every one
+of those four things untouched, and that repeated reloads don't
+double-append.
+
 ## Camp review box: no resize handle (PR #9)
 
 **Decision**: turned off `resize: vertical` (and the corner grip icon that
