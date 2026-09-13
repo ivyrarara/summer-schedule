@@ -11,6 +11,40 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## "Today" view goes stale in a backgrounded tab — added a date-rollover check on resume, not just on load
+
+**Report** (immediately after the Sunday fix above): "매번 새로고침 해야만
+오늘로 오고 그냥 앱을 열면 전주가 먼저 떠" — only a manual refresh brings the
+view to today; just opening the app (without refreshing) shows last week.
+
+**Why the previous fix wasn't enough**: `withFreshIndices()` only runs
+inside `componentDidMount`'s data-restore path — i.e., once per actual page
+load. A phone browser tab that's bookmarked/home-screened and left open
+overnight is typically suspended or bfcache'd, not unloaded — reopening it
+resumes the exact same page instance instead of re-running React's mount
+lifecycle. So `weekIdx`/`monthIdx` (and the "today" they were computed
+against) stay frozen at whatever they were the last time the page was
+genuinely loaded, until something forces an actual reload.
+
+**Fix**: track `_lastKnownToday` from `componentDidMount`, and listen for
+every plausible "this tab is alive again" signal — `visibilitychange`,
+`pageshow` (which also fires specifically on bfcache restores, distinct
+from a fresh load), and `focus`. On any of them, compare the current
+`getTodayKey()` against `_lastKnownToday`; only if the calendar date has
+actually advanced does it recompute `weekIdx`/`monthIdx` via the same
+`withFreshIndices()` used on load (and bump `selectedKey` forward too, but
+only if it was still pointing at the old "today" — a day the user
+deliberately navigated to in month view is left alone).
+
+Checking for an actual date change (not just re-running on every focus
+event) matters: naively resetting the view on every tab-focus would undo
+the user's own navigation any time they switched apps and back, even
+within the same day. Verified both directions with Playwright: advancing
+the mocked clock across midnight and firing the events without a reload
+correctly snaps the view to the new day's week; refocusing without the
+date changing, after the user had manually navigated to an unrelated week,
+leaves that navigation untouched.
+
 ## Fixed: opening the app on a Sunday showed last week instead of this week
 
 **Report**: "스케줄러 열면 해당하는 날을 먼저 보이게 해야하잖아? 근데 일요일에
