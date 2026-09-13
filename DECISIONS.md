@@ -11,6 +11,52 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Fixed: opening the app on a Sunday showed last week instead of this week
+
+**Report**: "스케줄러 열면 해당하는 날을 먼저 보이게 해야하잖아? 근데 일요일에
+전주를 보여줌" — opening the app should land on today's week, but on
+Sundays it landed on the previous week instead. Every other day of the
+week opened correctly; only Sunday was wrong.
+
+**Root cause**: the initial React state's `weekIdx` is computed once, at
+construction time, from `SEASON_START_DEFAULT` ("2026-06-29", a Monday) —
+before `restoreLocalSnapshot()`/`initSync()` have even run. Both of those
+explicitly `delete data.weekIdx` before merging in the restored/synced
+state (so a stale "last viewed week" never sticks — this was intentional,
+going back to the very first fix in this project: always open on today's
+week, not wherever it was last left). But nothing ever recomputed
+`weekIdx` afterward using the *actual* restored `seasonStart`. For this
+user, the real saved `seasonStart` is "2026-06-28" — a Sunday, one day
+earlier than the code's default — so their season's week boundaries run
+Sunday→Saturday, not the default's Monday→Sunday.
+
+That one-day offset between the two schemes only produces a *different*
+week index on the exact days where the two disagree about which week a
+date belongs to — and because the schemes are both 7-day chunks offset by
+exactly 1 day, that disagreement happens only on the real week-start day
+(Sunday, for this user): under the Monday-based default scheme, Sunday is
+still the *last* day of the previous chunk, one index behind where the
+real Sunday-based scheme places it. Monday through Saturday, both schemes
+happen to floor-divide to the same index, so the bug was invisible six
+days out of seven — which is exactly why it looked like a Sunday-only
+glitch rather than a general off-by-one.
+
+**Fix**: added `withFreshIndices()`, called from both `restoreLocalSnapshot`
+and `initSync`'s remote-apply branch right when the real `seasonStart`/
+`seasonTotalDays` become known, recomputing `weekIdx` (and `monthIdx` the
+same way) from those actual values via the same `computeWeekStarts` /
+`getDefaultWeekIdx` functions the rest of the app already uses — instead
+of leaving whatever the constructor guessed from the hardcoded default.
+
+**Verification**: reproduced with Playwright by fixing the browser clock to
+Sunday 2026-09-13 09:00 America/Toronto and seeding `seasonStart:
+"2026-06-28"` — before the fix, the app opened on 2026-09-06→09-12 (last
+week); after, it opens on 2026-09-13→09-19 with today as the first day.
+Re-checked Wednesday, Saturday, and the following Sunday to confirm the
+rest of the week (and the next boundary) still resolve correctly, and
+confirmed a fresh user with no saved season (using the code's own Monday-
+based default) was unaffected.
+
 ## Stale-camp migration switched from date-string to index comparison — the previous fix didn't actually clear the user's live data
 
 **What happened**: right after merging the previous entry's fix, the user
