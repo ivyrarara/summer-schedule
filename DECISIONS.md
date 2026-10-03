@@ -11,6 +11,39 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Whole-week holidays (Winter Break, Mid-Winter Break) get the camp-bar position instead of a per-day label; holiday label unbolded; "Thanksgiving Day" shortened
+
+Three small follow-ups in one pass:
+
+**Not bold**: the per-day holiday text (`font-weight:700`) was heavier
+than intended — dropped to `400`.
+
+**Whole-week holidays reuse the camp-bar position**: for a holiday that
+takes over an *entire* work week (Winter Break, Mid-Winter Break — as
+opposed to a single isolated day like PA Day or Thanksgiving), repeating
+the same label under all five day numbers was redundant. Instead, the
+month grid's row-spanning camp-name bar — previously shown only for a
+week with real camp data (`s.weeksData[weekIdx].camp`) — now also renders
+when every weekday slot in that calendar row resolves to the *same*
+`ORANGE_LABEL_DATES` entry, using that label in place of a camp name, same
+bar position/style, no real camp data required. Deliberately computed
+generically (checking "do all weekdays present in this row share one
+label", not a hardcoded list of holiday names) rather than hardcoding
+"Winter Break"/"Mid-Winter Break" — so it keeps working correctly if the
+holidays list changes later, and correctly handles Winter Break's second
+chunk spanning a month boundary (Dec 28 - Jan 1): checked against whichever
+weekdays actually fall in that row, so a row showing only Mon-Thu (with
+Friday in the next month) still resolves correctly. The per-day label is
+suppressed for these dates (gated off the same flag) so it isn't shown
+twice. The bar itself is non-interactive (`onClick: () => {}`) since
+there's no camp detail to open for a holiday.
+
+**"Thanksgiving Day" → "Thanksgiving"**: shortened only this one entry in
+`ORANGE_LABEL_DATES`, per explicit instruction — Labour Day, Family Day,
+etc. keep "Day". Since the map is the single shared source for every
+place this label renders (month grid, weekly view, day-detail card), the
+edit applies everywhere at once with no separate changes needed.
+
 ## Fixed date numbers jumping up on two-line holiday labels in the month grid
 
 **Report**: "두줄 들어가는 칸에 숫자가 혼자 정렬 위로 튀지 않게" — in cells
