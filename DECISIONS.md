@@ -11,6 +11,26 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Holiday dates get a weekend-orange dot in the month calendar grid
+
+**Request**: mark holidays (PA Day, Labour Day, Thanksgiving, Winter Break,
+etc. — `ORANGE_LABEL_DATES`) in the month view's calendar grid the same
+way Sunday already stands out there. First asked for "same color as
+Sunday" for the date *number*, but on inspection the date number's color
+in that grid doesn't actually vary by weekday at all — the only thing that
+already distinguishes weekend columns from weekdays there is the small dot
+below each date (blue for a weekday, orange `#F2600A` for Sat/Sun).
+Clarified with the user and went with: give holiday weekdays that same
+orange dot instead of the usual blue one.
+
+**Implementation**: the grid's per-cell `dotColor`/`showDot` previously
+branched only on `slot.day.hasCamp` (actually "is a weekday", the flag's
+real meaning despite its name, true for every Mon–Fri regardless of camp).
+Added an `isWeekdayHoliday` check (`hasCamp && ORANGE_LABEL_DATES[slot.key]`)
+and treat those cells like weekends for both color (orange) and visibility
+(always shown, not gated on having a badge/activity) — consistent with how
+a weekend's dot is unconditional too.
+
 ## "Today" view goes stale in a backgrounded tab — added a date-rollover check on resume, not just on load
 
 **Report** (immediately after the Sunday fix above): "매번 새로고침 해야만
