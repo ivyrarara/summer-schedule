@@ -11,6 +11,26 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Fixed date numbers jumping up on two-line holiday labels in the month grid
+
+**Report**: "두줄 들어가는 칸에 숫자가 혼자 정렬 위로 튀지 않게" — in cells
+where the holiday name wraps to two lines (e.g. "Thanksgiving Day"), that
+date's number sat noticeably higher than its neighbors in the same row.
+
+**Cause**: each cell is a flex column with `justifyContent: center`,
+centering the number + whatever's below it (dot, or holiday text) as one
+group. A two-line label makes that group taller than a one-line label or
+a plain dot, so centering shifts the whole group — and therefore the
+number — upward relative to cells with less content below it.
+
+**Fix**: wrapped the dot/holiday-label area in a fixed-height (`18px`)
+container, so every cell's number+content group is the same total height
+regardless of whether 0, 1, or 2 lines render underneath. Verified by
+measuring the actual rendered Y-position of the date-number span for Oct
+11-14 (where Oct 12 is the two-line "Thanksgiving Day"): all four now sit
+at the exact same pixel row, where before the fix 12 alone would have sat
+higher.
+
 ## Holiday name text in the month grid recolored orange -> black
 
 Quick follow-up to the entry right below: the holiday name text (e.g.
