@@ -11,6 +11,26 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Holiday marker in the month grid: the actual holiday name as text, not a dot or bold text
+
+Second follow-up on the same spot: the user rejected the bold-black-text
+treatment too — not a color/weight change on the date number at all, but
+the holiday's actual name (e.g. "Thanksgiving") printed as small text
+right where the dot used to be, under the date number.
+
+Replaced the single always-a-dot `<span>` with an `sc-if`/`sc-else`-style
+pair driven by a new `hasHolidayLabel`/`noHolidayLabel` flag on each cell:
+holiday weekdays render `ORANGE_LABEL_DATES[date]` as 7px orange text
+(`#F2600A`, matching the orange already used for these labels everywhere
+else in the app) instead of the dot; every other cell keeps the plain dot
+exactly as before. Text wraps (`white-space: normal`, `overflow-wrap:
+break-word`) rather than being truncated, so longer names like
+"Thanksgiving Day" or "Mid-Winter Break" break onto a second line within
+the cell instead of overflowing — verified visually across a two-word
+label (wraps cleanly), a run of five consecutive "Winter Break" cells in
+one row (no layout breakage), and the short single-word labels (PA Day,
+Labour Day) that fit on one line.
+
 ## Holiday marker in the month grid switched from an orange dot to bold black date text
 
 Right after the previous entry shipped, the user changed their mind on the
