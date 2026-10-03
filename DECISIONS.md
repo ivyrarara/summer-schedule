@@ -11,6 +11,14 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Holiday name text in the month grid recolored orange -> black
+
+Quick follow-up to the entry right below: the holiday name text (e.g.
+"Thanksgiving Day") was orange, matching the color used for these labels
+everywhere else in the app — the user asked for plain black instead.
+Nothing else about that change (size, wrapping, which cells get it)
+changed.
+
 ## Holiday marker in the month grid: the actual holiday name as text, not a dot or bold text
 
 Second follow-up on the same spot: the user rejected the bold-black-text
