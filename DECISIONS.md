@@ -11,6 +11,19 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Holiday marker in the month grid switched from an orange dot to bold black date text
+
+Right after the previous entry shipped, the user changed their mind on the
+treatment: "휴일은 점 말고 검은 글씨로" — mark holidays with bold black date
+text instead of the orange dot. Reverted the dot/`showDot` logic back to
+plain weekday-vs-weekend (no `isWeekdayHoliday` special case), and instead
+used that same flag to set the date number's color to literal `#000000`
+(bold, `fontWeight: 800`) — distinct from `--color-text` (`#201e1d`, a dark
+charcoal, not pure black) so the holiday genuinely reads as a different,
+heavier black rather than blending in. Kept the existing precedence where
+a manual `dayHolidayOverride` (red) still wins over everything, same as
+before.
+
 ## Holiday dates get a weekend-orange dot in the month calendar grid
 
 **Request**: mark holidays (PA Day, Labour Day, Thanksgiving, Winter Break,
