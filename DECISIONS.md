@@ -11,6 +11,18 @@ HTML/JS. Edits go through a decode → string-replace → re-encode round trip.
 
 ---
 
+## Holiday label in the month grid: fixed vertical alignment vs. the dot, back to orange, slightly bolder
+
+Another round on the same per-day holiday label: it sat ~3px higher than
+a regular dot in neighboring cells, because the dot has `margin-top:3px`
+inside their shared fixed-height container (added two entries back to
+keep date numbers aligned) but the label span had no matching offset.
+Added the same `margin-top:3px` to the label so both start from the same
+position. Also reverted the color from black back to orange (`#F2600A`,
+matching the rest of the app's holiday/weekend convention) and bumped the
+weight from `400` to `500` — "slightly" bolder, not back to the `700` that
+was rejected two rounds ago.
+
 ## Whole-week holidays (Winter Break, Mid-Winter Break) get the camp-bar position instead of a per-day label; holiday label unbolded; "Thanksgiving Day" shortened
 
 Three small follow-ups in one pass:
